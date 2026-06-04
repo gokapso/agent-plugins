@@ -1,0 +1,21 @@
+{
+  "status": "degraded",
+  "subject": {
+    "type": "phone_number",
+    "display_phone_number": "+15551234567",
+    "phone_number_id": "1234567890"
+  },
+  "evidence": [
+    "Number resolves in the current Kapso project.",
+    "Health check reports webhook subscription incomplete.",
+    "Recent outbound messages include delivery errors."
+  ],
+  "likely_cause": "Phone-number webhook or Meta-side send eligibility needs verification.",
+  "next_safe_checks": [
+    "kapso whatsapp numbers health --phone-number \"+15551234567\" --output human",
+    "kapso whatsapp templates list --phone-number \"+15551234567\" --output json",
+    "Inspect webhook deliveries if available through fallback scripts."
+  ],
+  "recommended_action": "Diagnose before reconnecting or changing setup.",
+  "customer_safe_explanation": "The WhatsApp number is visible, but one or more operational checks are incomplete. We are verifying webhook and Meta eligibility state before recommending changes."
+}

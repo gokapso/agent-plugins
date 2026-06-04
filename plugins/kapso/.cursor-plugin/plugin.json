@@ -1,0 +1,30 @@
+{
+  "name": "kapso",
+  "displayName": "Kapso",
+  "version": "0.1.0",
+  "description": "Build, integrate, and observe Kapso WhatsApp agents with Cursor.",
+  "author": {
+    "name": "Kapso",
+    "url": "https://kapso.ai"
+  },
+  "homepage": "https://kapso.ai",
+  "repository": "https://github.com/gokapso/agent-plugins",
+  "license": "MIT",
+  "logo": "assets/kapso-logo.png",
+  "keywords": [
+    "kapso",
+    "whatsapp",
+    "agents",
+    "workflows",
+    "mcp"
+  ],
+  "category": "developer-tools",
+  "tags": [
+    "whatsapp",
+    "automation",
+    "mcp"
+  ],
+  "skills": "./skills/",
+  "rules": "./rules/",
+  "mcpServers": "./mcp.json"
+}

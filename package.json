@@ -1,0 +1,8 @@
+{
+  "name": "kapso-agent-plugins",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "validate": "node scripts/validate-structure.mjs && node scripts/validate-codex.mjs"
+  }
+}

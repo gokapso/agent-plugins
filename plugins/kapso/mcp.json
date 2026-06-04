@@ -1,0 +1,7 @@
+{
+  "mcpServers": {
+    "kapso": {
+      "url": "https://api.kapso.ai/mcp"
+    }
+  }
+}

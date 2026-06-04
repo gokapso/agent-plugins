@@ -1,0 +1,42 @@
+{
+  "name": "kapso",
+  "version": "0.1.0",
+  "description": "Build, integrate, and observe Kapso WhatsApp agents with Codex.",
+  "author": {
+    "name": "Kapso",
+    "url": "https://kapso.ai"
+  },
+  "homepage": "https://kapso.ai",
+  "repository": "https://github.com/gokapso/agent-plugins",
+  "license": "MIT",
+  "keywords": [
+    "kapso",
+    "whatsapp",
+    "agents",
+    "workflows",
+    "codex"
+  ],
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
+  "interface": {
+    "displayName": "Kapso",
+    "shortDescription": "Build, integrate, and observe Kapso WhatsApp agents from Codex.",
+    "longDescription": "Kapso helps Codex build WhatsApp automations, integrate WhatsApp into products, inspect operational issues, and design polished agent experiences.",
+    "developerName": "Kapso",
+    "category": "Developer Tools",
+    "capabilities": [
+      "Workflow",
+      "Read",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Set up WhatsApp onboarding",
+      "Check WhatsApp health",
+      "Build a WhatsApp support agent"
+    ],
+    "brandColor": "#111827",
+    "composerIcon": "./assets/kapso-composer-icon.png",
+    "logo": "./assets/kapso-logo.png",
+    "screenshots": []
+  }
+}

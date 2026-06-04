@@ -1,0 +1,17 @@
+{
+  "name": "kapso",
+  "owner": {
+    "name": "Kapso",
+    "url": "https://kapso.ai"
+  },
+  "metadata": {
+    "description": "Kapso agent plugins for building, integrating, and observing WhatsApp agents."
+  },
+  "plugins": [
+    {
+      "name": "kapso",
+      "source": "plugins/kapso",
+      "description": "Build, integrate, and observe Kapso WhatsApp agents."
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "status": "warn",
+  "template": {
+    "name": "order_status_update",
+    "language": "en_US",
+    "category": "UTILITY"
+  },
+  "issues": [
+    "Confirm every named body parameter has a value in the send payload.",
+    "Use a template for outbound notifications outside the 24-hour session window."
+  ],
+  "verification_commands": [
+    "kapso whatsapp templates list --phone-number \"+15551234567\" --output json",
+    "kapso whatsapp templates get <template-id> --phone-number-id <phone-number-id> --output json"
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "name": "kapso",
+  "interface": {
+    "displayName": "Kapso"
+  },
+  "plugins": [
+    {
+      "name": "kapso",
+      "source": {
+        "source": "local",
+        "path": "./plugins/kapso"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Developer Tools"
+    }
+  ]
+}

@@ -3,6 +3,12 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "validate": "node scripts/validate-structure.mjs && node scripts/validate-codex.mjs"
+    "check:syntax": "node scripts/check-syntax.mjs",
+    "validate:schemas": "node scripts/validate-schemas.mjs",
+    "validate": "node scripts/validate-schemas.mjs && node scripts/validate-structure.mjs && node scripts/validate-codex.mjs && node scripts/validate-release.mjs"
+  },
+  "devDependencies": {
+    "ajv": "^8.18.0",
+    "ajv-formats": "^3.0.1"
   }
 }

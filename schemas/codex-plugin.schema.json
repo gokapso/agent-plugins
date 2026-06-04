@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://kapso.ai/schemas/agent-plugins/codex-plugin.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "name",
+    "version",
+    "description",
+    "author",
+    "homepage",
+    "repository",
+    "license",
+    "keywords",
+    "skills",
+    "mcpServers",
+    "interface"
+  ],
+  "properties": {
+    "name": { "type": "string", "minLength": 1 },
+    "version": { "$ref": "shared-defs.schema.json#/$defs/semver" },
+    "description": { "type": "string", "minLength": 1 },
+    "author": { "$ref": "shared-defs.schema.json#/$defs/person" },
+    "homepage": { "$ref": "shared-defs.schema.json#/$defs/httpsUrl" },
+    "repository": { "$ref": "shared-defs.schema.json#/$defs/httpsUrl" },
+    "license": { "type": "string", "minLength": 1 },
+    "keywords": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "skills": { "$ref": "shared-defs.schema.json#/$defs/relativePath" },
+    "mcpServers": { "$ref": "shared-defs.schema.json#/$defs/relativePath" },
+    "interface": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "displayName",
+        "shortDescription",
+        "longDescription",
+        "developerName",
+        "category",
+        "capabilities",
+        "defaultPrompt",
+        "websiteURL",
+        "privacyPolicyURL",
+        "documentationURL",
+        "brandColor",
+        "composerIcon",
+        "logo",
+        "screenshots"
+      ],
+      "properties": {
+        "displayName": { "type": "string", "minLength": 1 },
+        "shortDescription": { "type": "string", "minLength": 1 },
+        "longDescription": { "type": "string", "minLength": 1 },
+        "developerName": { "type": "string", "minLength": 1 },
+        "category": { "type": "string", "minLength": 1 },
+        "capabilities": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "defaultPrompt": {
+          "type": "array",
+          "minItems": 3,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "websiteURL": { "$ref": "shared-defs.schema.json#/$defs/httpsUrl" },
+        "privacyPolicyURL": { "$ref": "shared-defs.schema.json#/$defs/httpsUrl" },
+        "documentationURL": { "$ref": "shared-defs.schema.json#/$defs/httpsUrl" },
+        "brandColor": {
+          "type": "string",
+          "pattern": "^#[0-9A-Fa-f]{6}$"
+        },
+        "composerIcon": { "$ref": "shared-defs.schema.json#/$defs/relativePath" },
+        "logo": { "$ref": "shared-defs.schema.json#/$defs/relativePath" },
+        "screenshots": {
+          "type": "array",
+          "items": { "$ref": "shared-defs.schema.json#/$defs/relativePath" }
+        }
+      }
+    }
+  }
+}

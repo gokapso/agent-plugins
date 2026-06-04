@@ -1,2 +1,15 @@
 node_modules/
 .DS_Store
+.env
+.env.*
+!.env.example
+*.log
+logs/
+tmp/
+temp/
+coverage/
+dist/
+.nyc_output/
+*.local.json
+*.output.json
+*.tmp

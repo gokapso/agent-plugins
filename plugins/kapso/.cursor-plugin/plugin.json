@@ -5,9 +5,13 @@
   "description": "Build, integrate, and observe Kapso WhatsApp agents with Cursor.",
   "author": {
     "name": "Kapso",
+    "email": "dev@kap.so",
     "url": "https://kapso.ai"
   },
   "homepage": "https://kapso.ai",
+  "website": "https://kapso.ai",
+  "privacyPolicy": "https://kapso.ai/privacy",
+  "documentation": "https://docs.kapso.ai",
   "repository": "https://github.com/gokapso/agent-plugins",
   "license": "MIT",
   "logo": "assets/kapso-logo.png",

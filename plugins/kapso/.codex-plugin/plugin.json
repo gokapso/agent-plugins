@@ -4,6 +4,7 @@
   "description": "Build, integrate, and observe Kapso WhatsApp agents with Codex.",
   "author": {
     "name": "Kapso",
+    "email": "dev@kap.so",
     "url": "https://kapso.ai"
   },
   "homepage": "https://kapso.ai",
@@ -21,7 +22,7 @@
   "interface": {
     "displayName": "Kapso",
     "shortDescription": "Build, integrate, and observe Kapso WhatsApp agents from Codex.",
-    "longDescription": "Kapso helps Codex build WhatsApp automations, integrate WhatsApp into products, inspect operational issues, and design polished agent experiences.",
+    "longDescription": "Kapso is the WhatsApp API for developers. This plugin helps Codex onboard customers to WhatsApp, send and receive messages, manage templates and flows, build workflow automations, deploy functions, and debug production delivery or webhook issues with focused Kapso context.",
     "developerName": "Kapso",
     "category": "Developer Tools",
     "capabilities": [
@@ -34,6 +35,9 @@
       "Check WhatsApp health",
       "Build a WhatsApp support agent"
     ],
+    "websiteURL": "https://kapso.ai",
+    "privacyPolicyURL": "https://kapso.ai/privacy",
+    "documentationURL": "https://docs.kapso.ai",
     "brandColor": "#111827",
     "composerIcon": "./assets/kapso-composer-icon.png",
     "logo": "./assets/kapso-logo.png",

@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://kapso.ai/schemas/agent-plugins/claude-marketplace.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["name", "version", "description", "owner", "plugins"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "name": { "type": "string", "minLength": 1 },
+    "version": { "$ref": "shared-defs.schema.json#/$defs/semver" },
+    "description": { "type": "string", "minLength": 1 },
+    "owner": { "$ref": "shared-defs.schema.json#/$defs/person" },
+    "plugins": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "description", "version", "author", "source", "category", "homepage"],
+        "properties": {
+          "name": { "type": "string", "minLength": 1 },
+          "description": { "type": "string", "minLength": 1 },
+          "version": { "$ref": "shared-defs.schema.json#/$defs/semver" },
+          "author": { "$ref": "shared-defs.schema.json#/$defs/person" },
+          "source": { "$ref": "shared-defs.schema.json#/$defs/relativePath" },
+          "category": { "type": "string", "minLength": 1 },
+          "homepage": { "$ref": "shared-defs.schema.json#/$defs/httpsUrl" }
+        }
+      }
+    }
+  }
+}

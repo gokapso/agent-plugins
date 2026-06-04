@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-import { loadConfig } from './lib/workflows/kapso-api.js';
 import { ok, err, printJson } from './lib/workflows/result.js';
 import { parseArgs, getFlag, getBooleanFlag } from './lib/workflows/args.js';
 
@@ -21,12 +20,10 @@ async function main() {
   const name = getFlag(parsed.flags, 'name');
   const value = getFlag(parsed.flags, 'value');
 
-  const config = loadConfig();
-
   printJson(err('Workflow variables create/update is not available in the Platform API.', {
     workflow_id: workflowId,
     name,
-    value,
+    value_provided: value !== undefined,
     note: 'Only variable discovery is proposed; CRUD endpoints are missing.'
   }, true));
 

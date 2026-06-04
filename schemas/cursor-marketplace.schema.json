@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://kapso.ai/schemas/agent-plugins/cursor-marketplace.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["name", "owner", "metadata", "plugins"],
+  "properties": {
+    "name": { "type": "string", "minLength": 1 },
+    "owner": { "$ref": "shared-defs.schema.json#/$defs/person" },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["description"],
+      "properties": {
+        "description": { "type": "string", "minLength": 1 }
+      }
+    },
+    "plugins": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "source", "description"],
+        "properties": {
+          "name": { "type": "string", "minLength": 1 },
+          "source": { "$ref": "shared-defs.schema.json#/$defs/relativePath" },
+          "description": { "type": "string", "minLength": 1 }
+        }
+      }
+    }
+  }
+}

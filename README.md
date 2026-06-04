@@ -1,26 +1,16 @@
 # Kapso Agent Plugins
 
-Use Kapso with your favorite agent harness.
+Use Kapso with your favorite agent harness. These plugins give Codex, Cursor, and Claude Code focused skills for building, integrating, and operating WhatsApp agents on Kapso.
 
-This repository follows the multi-agent marketplace layout used by Paper Design:
+Missing an agent harness? Open an issue in this repository.
 
-```text
-kapso-agent-plugins/
-├── .agents/plugins/marketplace.json
-├── .claude-plugin/marketplace.json
-├── .cursor-plugin/marketplace.json
-└── plugins/
-    └── kapso/
-        ├── .codex-plugin/plugin.json
-        ├── .claude-plugin/plugin.json
-        ├── .cursor-plugin/plugin.json
-        ├── .mcp.json
-        ├── mcp.json
-        ├── rules/
-        ├── skills/
-        ├── scripts/
-        └── assets/
-```
+## What It Includes
+
+- `integrate-whatsapp`: connect WhatsApp to products, onboard customers, configure webhooks, send messages, manage templates, and work with WhatsApp Flows.
+- `automate-whatsapp`: build workflows, triggers, functions, agents, app integrations, and database-backed automations.
+- `observe-whatsapp`: inspect delivery, webhook retries, API errors, number health, templates, and operational incidents.
+- Kapso MCP server configs for remote authenticated access to Kapso.
+- Safety guidance, examples, and validation scripts for release checks.
 
 ## Cursor
 
@@ -62,22 +52,43 @@ Install the plugin:
 codex plugin install kapso@kapso
 ```
 
-For local testing, add this directory as the marketplace root:
+You can also browse and install plugins interactively from Codex after adding the marketplace.
+
+For local testing, add this repository directory as the marketplace root:
 
 ```bash
-codex plugin marketplace add /Users/clementeortuzar/dev/kapso/kapso-agent-plugins
+codex plugin marketplace add /path/to/kapso-agent-plugins
 codex plugin install kapso@kapso
 ```
 
-## What It Includes
+## Prerequisites
 
-- Skills for integrating WhatsApp, automating WhatsApp workflows, and observing WhatsApp production issues.
-- Kapso MCP server configs at `plugins/kapso/mcp.json` and `plugins/kapso/.mcp.json`.
-- Agent-specific manifests for Codex, Cursor, and Claude Code.
-- Shared Kapso branding, scripts, examples, and safety guidance.
+- A Kapso account and access to the project you want to operate.
+- Node.js 20+ for the bundled helper scripts.
+- For MCP auth in Codex, run:
+
+```bash
+codex mcp login kapso
+```
+
+Direct API fallback scripts use:
+
+```bash
+export KAPSO_API_BASE_URL="https://api.kapso.ai"
+export KAPSO_API_KEY="..."
+```
 
 ## Validation
 
 ```bash
 npm run validate
+npm run check:syntax
 ```
+
+CI runs both commands on every pull request and push to `main`.
+
+## Safety
+
+The plugin treats read-only inspection and local validation as safe defaults. Actions that send messages, deploy functions, mutate workflows, create templates, update webhooks, create setup links, or delete resources should be confirmed explicitly by the user before running.
+
+Release checks reject local filesystem paths, obvious secret files, invalid JSON, unsafe remote MCP URLs, and incomplete marketplace metadata.

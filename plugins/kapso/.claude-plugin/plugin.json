@@ -4,7 +4,12 @@
   "version": "0.1.0",
   "author": {
     "name": "Kapso",
+    "email": "dev@kap.so",
     "url": "https://kapso.ai"
   },
-  "homepage": "https://kapso.ai"
+  "homepage": "https://kapso.ai",
+  "repository": "https://github.com/gokapso/agent-plugins",
+  "license": "MIT",
+  "privacyPolicy": "https://kapso.ai/privacy",
+  "documentation": "https://docs.kapso.ai"
 }

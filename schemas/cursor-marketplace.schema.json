@@ -6,7 +6,15 @@
   "required": ["name", "owner", "metadata", "plugins"],
   "properties": {
     "name": { "type": "string", "minLength": 1 },
-    "owner": { "$ref": "shared-defs.schema.json#/$defs/person" },
+    "owner": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "email": { "type": "string", "format": "email" }
+      }
+    },
     "metadata": {
       "type": "object",
       "additionalProperties": false,

@@ -18,6 +18,7 @@ const validations = [
   [".agents/plugins/marketplace.json", "codex-marketplace.schema.json"],
   [".cursor-plugin/marketplace.json", "cursor-marketplace.schema.json"],
   [".claude-plugin/marketplace.json", "claude-marketplace.schema.json"],
+  ["plugins/kapso/.cursor-plugin/plugin.json", "cursor-plugin.schema.json"],
   ["plugins/kapso/.codex-plugin/plugin.json", "codex-plugin.schema.json"]
 ];
 

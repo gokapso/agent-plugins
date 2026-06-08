@@ -12,6 +12,32 @@ Kapso is the WhatsApp API for developers. This plugin helps agents build, integr
 - Use bundled examples and references so agents can act with product-specific context instead of generic WhatsApp guidance.
 - Keep risky operations behind explicit user approval for sends, deploys, deletes, webhook changes, template creation, setup links, and workflow mutations.
 
+## Installation
+
+Install from the Cursor marketplace:
+
+```text
+/add-plugin kapso
+```
+
+Codex users can install from the custom marketplace:
+
+```bash
+codex plugin marketplace add gokapso/agent-plugins
+codex plugin install kapso@kapso
+```
+
+## Components
+
+- Skills:
+  - `integrate-whatsapp`: connect WhatsApp to products, onboard customers, configure webhooks, send messages, manage templates, and work with WhatsApp Flows.
+  - `automate-whatsapp`: build workflows, triggers, functions, agents, app integrations, and database-backed automations.
+  - `observe-whatsapp`: inspect delivery, webhook retries, API errors, number health, templates, and operational incidents.
+- Rule:
+  - `kapso-safety`: classifies read-only, local write, and high-risk write operations, and requires explicit approval before high-risk writes.
+- MCP:
+  - `kapso`: remote authenticated MCP server at `https://api.kapso.ai/mcp`.
+
 ## Prerequisites
 
 - A Kapso account with access to the project or customer you want to operate.
@@ -44,11 +70,27 @@ The bundled MCP config points to:
 https://api.kapso.ai/mcp
 ```
 
+Cursor users can authenticate the remote MCP server from Cursor after the plugin is installed:
+
+1. Open Cursor settings for MCP servers.
+2. Find the `kapso` server.
+3. Start the connection or authentication flow.
+4. Complete the Kapso login and approval flow in the browser window Cursor opens.
+5. Return to Cursor and confirm the `kapso` MCP server is connected.
+
+If Cursor prompts for a server URL during manual setup, use:
+
+```text
+https://api.kapso.ai/mcp
+```
+
 Codex users can authenticate the MCP server with:
 
 ```bash
 codex mcp login kapso
 ```
+
+Maintainer note: the plugin includes both `mcp.json` and `.mcp.json` because different agent hosts look for different MCP config filenames. They intentionally point to the same Kapso remote MCP endpoint.
 
 ## Examples
 

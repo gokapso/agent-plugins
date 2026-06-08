@@ -2,7 +2,7 @@
   "name": "kapso",
   "owner": {
     "name": "Kapso",
-    "url": "https://kapso.ai"
+    "email": "dev@kap.so"
   },
   "metadata": {
     "description": "Kapso agent plugins for building, integrating, and observing WhatsApp agents."

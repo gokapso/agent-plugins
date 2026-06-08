@@ -147,6 +147,12 @@ if (!fs.existsSync(path.join(root, "SECURITY.md"))) {
 if (!fs.existsSync(path.join(root, "CONTRIBUTING.md"))) {
   fail("Missing CONTRIBUTING.md");
 }
+if (!fs.existsSync(path.join(pluginRoot, "CHANGELOG.md"))) {
+  fail("Missing plugins/kapso/CHANGELOG.md");
+}
+if (!fs.existsSync(path.join(pluginRoot, "LICENSE"))) {
+  fail("Missing plugins/kapso/LICENSE");
+}
 
 ensureReadmeSections("README.md", [
   "What It Includes",

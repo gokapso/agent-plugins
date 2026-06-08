@@ -9,7 +9,5 @@
   },
   "homepage": "https://kapso.ai",
   "repository": "https://github.com/gokapso/agent-plugins",
-  "license": "MIT",
-  "privacyPolicy": "https://kapso.ai/privacy",
-  "documentation": "https://docs.kapso.ai"
+  "license": "MIT"
 }

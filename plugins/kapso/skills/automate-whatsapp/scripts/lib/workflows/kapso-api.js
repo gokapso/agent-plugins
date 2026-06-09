@@ -11,7 +11,7 @@ function normalizeBaseUrl(raw) {
 }
 
 function isLocalhost(hostname) {
-  return hostname === 'localhost' || hostname === '127.0.0.1' || hostname === '0.0.0.0' || hostname === '::1' || hostname === '[::1]';
+  return hostname === 'localhost' || hostname === '127.0.0.1';
 }
 
 function validateBaseUrl(baseUrl) {
@@ -20,28 +20,12 @@ function validateBaseUrl(baseUrl) {
   try {
     parsed = new URL(baseUrl);
   } catch (error) {
-    throw new Error('Invalid KAPSO_API_BASE_URL.');
-  }
-  if (parsed.username || parsed.password) {
-    throw new Error('KAPSO_API_BASE_URL must not include credentials.');
-  }
-  if (parsed.protocol !== 'https:' && parsed.protocol !== 'http:') {
-    throw new Error('KAPSO_API_BASE_URL must use http or https.');
+    throw new Error(`Invalid KAPSO_API_BASE_URL: ${baseUrl}`);
   }
   if (!process.env.KAPSO_API_ALLOW_LOCALHOST && isLocalhost(parsed.hostname)) {
     throw new Error(
       `KAPSO_API_BASE_URL points to localhost (${parsed.hostname}). ` +
       'Set KAPSO_API_ALLOW_LOCALHOST=true if this is intentional.'
-    );
-  }
-  if (
-    parsed.protocol === 'http:' &&
-    !(process.env.KAPSO_API_ALLOW_LOCALHOST && isLocalhost(parsed.hostname)) &&
-    process.env.KAPSO_API_ALLOW_INSECURE_HTTP !== 'true'
-  ) {
-    throw new Error(
-      'KAPSO_API_BASE_URL must use https. ' +
-      'Set KAPSO_API_ALLOW_INSECURE_HTTP=true only for trusted development hosts.'
     );
   }
 }

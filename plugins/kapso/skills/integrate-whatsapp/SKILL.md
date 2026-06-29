@@ -232,6 +232,16 @@ Send-time:
 
 Use Flows to build native WhatsApp forms. Read `references/whatsapp-flows-spec.md` before editing Flow JSON.
 
+### Prerequisite: a connected number
+
+A Flow always belongs to a connected WhatsApp number, so confirm one exists **before** starting the builder:
+
+```bash
+node scripts/list-platform-phone-numbers.mjs
+```
+
+If the list is empty, do **not** proceed into the Flow builder with an empty number selection — that is a dead end. Route the user to connect a number first via embedded signup (`kapso setup`, or generate a setup link with `POST /platform/v1/customers/:id/setup_links`), then return to create the Flow. See `references/getting-started.md` and `references/setup-links.md`. `create-flow.js` enforces this: called without `--phone-number-id`, it lists the connected numbers to pick from, or tells you to connect one first when none exist.
+
 ### Create and publish a flow
 
 1. Create flow: `node scripts/create-flow.js --phone-number-id <id> --name <name>`

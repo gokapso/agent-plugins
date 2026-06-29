@@ -43,6 +43,7 @@ async function main() {
       const path = `/platform/v1/whatsapp/messages?${params.toString()}`;
       result.sources.message_delivery = await kapsoRequest(config, path);
       result.notes.push('Message failures use outbound status=failed and do not support period filtering.');
+      result.notes.push('For broadcast/campaign failures (e.g. high 131049 marketing-cap rates), use scripts/broadcasts.js — broadcast delivery data is not included here.');
     }
 
     if (!source || source === 'api_call') {

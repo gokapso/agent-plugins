@@ -47,6 +47,17 @@ Fallback path:
 2. API logs: `node scripts/api-logs.js`
 3. Webhook deliveries: `node scripts/webhook-deliveries.js`
 
+To map a WhatsApp error code (e.g. `131049` "healthy ecosystem engagement" marketing cap) to remediation, use the error-code table in [references/message-debugging-reference.md](references/message-debugging-reference.md).
+
+### Triage broadcast (campaign) failures
+
+Broadcast delivery data lives in the platform API, not PostHog analytics. Use this when a campaign shows a high failure rate, or when the broadcast detail page won't load (the API reads the same data).
+
+1. List failing broadcasts: `node scripts/broadcasts.js --status failed`
+2. Inspect one broadcast's counts: `node scripts/broadcasts.js --broadcast-id <id>`
+3. Drill into failed recipients (with error codes): `node scripts/broadcasts.js --broadcast-id <id> --recipients --failed-only`
+4. Map recipient `error_details.code` / `error_message` to remediation via [references/message-debugging-reference.md](references/message-debugging-reference.md). See [references/triage-reference.md](references/triage-reference.md) for the full broadcast triage flow.
+
 ### Run health checks
 
 Preferred path:
@@ -74,6 +85,7 @@ Fallback path:
 | `errors.js` | List message errors |
 | `api-logs.js` | List external API logs |
 | `webhook-deliveries.js` | List webhook delivery attempts |
+| `broadcasts.js` | List broadcasts, inspect one, and drill into failed recipients |
 
 ### Health
 
@@ -123,7 +135,7 @@ node scripts/openapi-explore.mjs --spec platform schema WebhookDelivery
 |.:{package.json,SKILL.md}
 |assets:{health-example.json,message-debugging-example.json,triage-example.json}
 |references:{health-reference.md,message-debugging-reference.md,triage-reference.md}
-|scripts:{api-logs.js,errors.js,lookup-conversation.js,message-details.js,messages.js,openapi-explore.mjs,overview.js,webhook-deliveries.js,whatsapp-health.js}
+|scripts:{api-logs.js,broadcasts.js,errors.js,lookup-conversation.js,message-details.js,messages.js,openapi-explore.mjs,overview.js,webhook-deliveries.js,whatsapp-health.js}
 |scripts/lib/messages:{args.js,kapso-api.js}
 |scripts/lib/status:{args.js,kapso-api.js}
 |scripts/lib/triage:{args.js,kapso-api.js}

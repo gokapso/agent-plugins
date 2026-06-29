@@ -1,11 +1,23 @@
 const { getConfig } = require('./env');
 
+const DEFAULT_TIMEOUT_MS = 30000;
+
 class RequestError extends Error {
   constructor(message, status, body) {
     super(message);
     this.status = status;
     this.body = body;
   }
+}
+
+// Resolve the per-request timeout. Without a bound, a slow or hung Meta/Platform
+// call leaves the script spinning forever with no feedback. Override with
+// KAPSO_HTTP_TIMEOUT_MS (milliseconds); 0 or invalid falls back to the default.
+function getTimeoutMs() {
+  const raw = process.env.KAPSO_HTTP_TIMEOUT_MS;
+  if (!raw) return DEFAULT_TIMEOUT_MS;
+  const parsed = Number(raw);
+  return Number.isFinite(parsed) && parsed > 0 ? parsed : DEFAULT_TIMEOUT_MS;
 }
 
 function buildUrl(baseUrl, path, query) {
@@ -56,11 +68,30 @@ async function request({ baseUrl, path, method, query, body, headers }) {
     }
   }
 
-  const response = await fetch(url, {
-    method,
-    headers: finalHeaders,
-    body: finalBody
-  });
+  const timeoutMs = getTimeoutMs();
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+
+  let response;
+  try {
+    response = await fetch(url, {
+      method,
+      headers: finalHeaders,
+      body: finalBody,
+      signal: controller.signal
+    });
+  } catch (error) {
+    if (error && error.name === 'AbortError') {
+      throw new RequestError(
+        `Request timed out after ${timeoutMs}ms (set KAPSO_HTTP_TIMEOUT_MS to adjust)`,
+        408,
+        { timedOut: true, url }
+      );
+    }
+    throw error;
+  } finally {
+    clearTimeout(timer);
+  }
 
   const contentType = response.headers.get('content-type') || '';
   const text = await response.text();

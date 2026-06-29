@@ -223,10 +223,24 @@ Creation:
 - Don't interleave QUICK_REPLY with URL/PHONE_NUMBER buttons
 - URL button variables must be at the end of the URL and use positional `{{1}}`
 
+Pre-submit checklist (Meta rejects on submit, not inline — verify before creating):
+- **Name**: lowercase/numbers/underscores only, ≤512 chars, and **unique within the WABA**
+- **Buttons**: every button has non-empty `text` (≤25 chars); remove unused buttons rather than leaving them blank
+- **Examples**: every `{{variable}}` in HEADER/BODY (and URL buttons) has a matching example value
+- **Placeholders**: positional `{{1}}`, `{{2}}` with no gaps
+- See the full checklist in `references/templates-reference.md`
+
 Send-time:
 - For NAMED templates, include `parameter_name` in header/body params
 - URL buttons need a `button` component with `sub_type: "url"` and `index`
 - Media headers use either `id` or `link` (never both)
+
+Troubleshooting creation errors:
+- **"template name already exists"**: names are unique per WhatsApp Business Account (WABA). Pick a unique name, update the existing template via `node scripts/update-template.mjs` / `hsm_id`, or delete the old one first. Switching WhatsApp accounts also clears it but is only a workaround.
+- **"Please provide example values for all parameters"**: add an example for every `{{variable}}` in HEADER/BODY (and URL buttons).
+- **Invalid-character / invalid-name error**: rename to lowercase letters, numbers, and underscores only (no spaces, uppercase, or hyphens).
+- **Empty button text**: give every quick-reply/URL/phone button non-empty text, or remove it.
+- See `references/templates-reference.md` → "Common creation errors and recovery".
 
 ## WhatsApp Flows
 

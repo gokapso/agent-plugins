@@ -245,7 +245,8 @@ Use `automate-whatsapp` function scripts to find function IDs and update code.
 ```
 
 Notes:
-- `provider_model_id` is required. Use `scripts/list-provider-models.js` to find it.
+- `provider_model_id` is required. Run `node scripts/list-provider-models.js` to get a valid id and set it in `config.provider_model_id` **before** saving the node. `scripts/validate-graph.js` errors when an agent node is missing it, so validate the graph before `update-graph.js`.
+- `system_prompt` should be non-empty. `validate-graph.js` warns when it is blank.
 - Agent tool arrays live inside `data.config` (not at the `data` root).
 - `message_delivery_mode` controls user-visible text:
   - `auto_send_assistant_text` sends normal assistant text automatically.

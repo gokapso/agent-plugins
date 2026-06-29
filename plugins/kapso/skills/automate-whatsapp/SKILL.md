@@ -159,6 +159,7 @@ Notes:
 - Non-decide nodes have 0 or 1 outgoing `next` edge
 - Decide edge labels must match `conditions[].label`
 - Edge keys are `source`/`target`/`label` (not `from`/`to`)
+- Agent nodes require `config.provider_model_id` — run `node scripts/list-provider-models.js` and set it (plus a non-empty `config.system_prompt`) before saving. `validate-graph.js` errors on a missing model id.
 
 For full schema details, see `references/graph-contract.md`.
 

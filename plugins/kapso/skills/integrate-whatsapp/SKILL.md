@@ -16,6 +16,7 @@ Env vars:
 - `KAPSO_API_BASE_URL` (host only, no `/platform/v1`)
 - `KAPSO_API_KEY`
 - `META_GRAPH_VERSION` (optional, default `v24.0`)
+- `KAPSO_HTTP_TIMEOUT_MS` (optional, default `30000`) - aborts a slow/hung Meta or Platform call with a clear timeout error instead of spinning forever. Increase it for large template/flow syncs over slow links.
 
 Auth header (direct API calls):
 ```
@@ -281,9 +282,11 @@ async function handler(request, env) {
 
 ### Troubleshooting
 
-- Preview shows `"flow_token is missing"`: flow is dynamic without a data endpoint. Attach one and refresh.
+- Preview shows `"flow_token is missing"` or renders blank with a preview-URL warning: flow is dynamic (`data_api_version` set / `routing_model` present) but has no working data endpoint. Attach and register one (see "Attach a data endpoint"), then refresh. Confirm it is live with `node scripts/get-data-endpoint.js --flow-id <id>`.
 - Encryption setup errors: enable encryption in Settings for the phone number/WABA.
 - OAuthException 139000 (Integrity): WABA must be verified in Meta security center.
+- `list-flows.js` / `list-templates.mjs` returns nothing where you expect data: confirm you are scoping by the same `phone_number_id` / `business_account_id` (WABA) the flow or template was created under — listings are scoped, so a mismatched ID returns an empty list rather than an error.
+- A flow/template sync or listing hangs: requests now abort after `KAPSO_HTTP_TIMEOUT_MS` (default 30s) and return a `408` timeout error (`timedOut: true`) instead of spinning forever. Retry, or raise the timeout for large syncs.
 
 ## Scripts
 

@@ -1,0 +1,23 @@
+{
+  "message_id": "wamid.HBgMOTg3NjU0MzIx",
+  "direction": "outbound",
+  "status": "failed",
+  "timeline": [
+    { "status": "sent", "at": "2025-07-16T09:40:00Z" },
+    {
+      "status": "failed",
+      "at": "2025-07-16T09:40:02Z",
+      "errors": [
+        {
+          "code": 131047,
+          "title": "Re-engagement message",
+          "message": "More than 24 hours have passed since the recipient last replied to this number."
+        }
+      ]
+    }
+  ],
+  "diagnosis": {
+    "cause": "The 24-hour customer service window expired, so the free-form message was blocked.",
+    "remediation": "Send an approved template to re-open the conversation. See references/delivery-error-codes.md (code 131047) and the re-engagement pattern."
+  }
+}

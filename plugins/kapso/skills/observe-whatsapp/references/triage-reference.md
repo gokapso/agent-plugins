@@ -4,7 +4,10 @@
 
 1. Collect message ID (`wamid.*`).
 2. Inspect message lifecycle timeline.
-3. Translate error codes into user-facing guidance.
+3. Read the failed status `errors[].code` and translate it into user-facing
+   guidance using [delivery-error-codes.md](delivery-error-codes.md). For
+   24-hour-window expiry (`131047`), apply the re-engagement pattern documented
+   there to prevent the recurrence, not just explain it.
 
 ## WhatsApp config issues
 

@@ -110,6 +110,7 @@ node scripts/openapi-explore.mjs --spec platform schema WebhookDelivery
 
 - [references/message-debugging-reference.md](references/message-debugging-reference.md) - Message debugging guide
 - [references/triage-reference.md](references/triage-reference.md) - Error triage guide
+- [references/delivery-error-codes.md](references/delivery-error-codes.md) - Meta delivery error-code -> cause/remediation table and the 24-hour-window re-engagement pattern
 - [references/health-reference.md](references/health-reference.md) - Health check guide
 
 ## Related skills
@@ -121,8 +122,8 @@ node scripts/openapi-explore.mjs --spec platform schema WebhookDelivery
 ```text
 [observe-whatsapp file map]|root: .
 |.:{package.json,SKILL.md}
-|assets:{health-example.json,message-debugging-example.json,triage-example.json}
-|references:{health-reference.md,message-debugging-reference.md,triage-reference.md}
+|assets:{health-example.json,message-debugging-example.json,message-debugging-failed-example.json,triage-example.json}
+|references:{delivery-error-codes.md,health-reference.md,message-debugging-reference.md,triage-reference.md}
 |scripts:{api-logs.js,errors.js,lookup-conversation.js,message-details.js,messages.js,openapi-explore.mjs,overview.js,webhook-deliveries.js,whatsapp-health.js}
 |scripts/lib/messages:{args.js,kapso-api.js}
 |scripts/lib/status:{args.js,kapso-api.js}

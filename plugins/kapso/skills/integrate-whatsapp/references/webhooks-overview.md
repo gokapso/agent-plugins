@@ -53,3 +53,28 @@ Batched payloads may include:
 
 - `X-Webhook-Batch: true`
 - `X-Batch-Size: <n>`
+
+## Troubleshooting: "Last delivery: Failed"
+
+A "Failed" status is determined entirely by how your **receiving endpoint** responded — not by which events the webhook subscribes to or its buffering/debouncing settings. Changing event triggers or buffering does **not** affect delivery success, so re-editing those settings will never clear a failed delivery.
+
+Common causes:
+
+- **Non-200 response**: the endpoint returned a status other than `200 OK`. Kapso retries (see retry schedule above), then marks the delivery failed.
+- **Timeout**: the endpoint did not respond within 10 seconds.
+- **Signature mismatch**: the endpoint rejected the request while verifying `X-Webhook-Signature` (commonly from hashing parsed JSON instead of the raw request bytes — see [Signature verification](#signature-verification)).
+- **Wrong webhook scope**: the event is not delivered on this webhook. `whatsapp.message.*` and `whatsapp.conversation.*` are delivered only on phone-number webhooks; lifecycle/workflow events only on project webhooks. See `webhooks-reference.md`.
+
+Diagnose the endpoint (don't edit triggers or buffering):
+
+1. Inspect the actual delivery attempts, response codes, and errors — `webhook-deliveries.js` in the `observe-whatsapp` skill:
+   ```bash
+   node scripts/webhook-deliveries.js --errors-only true
+   ```
+   Also supports `--status <value>`, `--event <value>`, `--webhook-id <id>`, and `--period <24h|7d|30d>`.
+2. Re-send a controlled test delivery to the endpoint — `test.js` in the `integrate-whatsapp` skill:
+   ```bash
+   node scripts/test.js --webhook-id <id>
+   ```
+
+Then fix the endpoint (return `200 OK` within 10 seconds; verify the signature against the raw request bytes) and re-test.

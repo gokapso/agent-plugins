@@ -55,3 +55,21 @@ Use buffering to batch rapid inbound messages:
 - `buffer_enabled`: true
 - `buffer_window_seconds`: 1-60
 - `max_buffer_size`: 1-100
+
+Buffering only controls how inbound `message.received` events are batched before sending. It does **not** affect whether a delivery succeeds — a "Last delivery: Failed" status is never fixed by changing buffering or event triggers. See "Delivery troubleshooting" below.
+
+## Delivery troubleshooting ("Last delivery: Failed")
+
+A delivery is marked failed based on how your **receiving endpoint** responds, not on the webhook's event triggers or buffering settings. Real causes:
+
+- **Non-200 response** — endpoint returned something other than `200 OK`.
+- **Timeout** — endpoint did not respond within 10 seconds.
+- **Signature mismatch** — endpoint rejected the request while verifying `X-Webhook-Signature` (verify against raw bytes, not parsed JSON).
+- **Wrong webhook scope** — the event isn't delivered on this webhook (see Scopes above).
+
+Diagnose instead of re-editing config:
+
+- List real delivery attempts and errors: `node scripts/webhook-deliveries.js --errors-only true` (`observe-whatsapp` skill; also `--status`, `--event`, `--webhook-id`, `--period`).
+- Re-send a test delivery: `node scripts/test.js --webhook-id <id>` (`integrate-whatsapp` skill).
+
+See `webhooks-overview.md` for the full troubleshooting checklist.

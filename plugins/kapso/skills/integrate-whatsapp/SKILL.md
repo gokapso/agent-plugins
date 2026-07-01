@@ -102,6 +102,12 @@ Test delivery:
 node scripts/test.js --webhook-id <id>
 ```
 
+Troubleshoot "Last delivery: Failed":
+- Delivery success depends only on the **receiving endpoint** (non-200, timeout, signature mismatch, wrong scope). Event triggers and buffering/debouncing settings do **not** affect it — editing them will not clear a failed delivery.
+- Inspect real delivery attempts and errors: `node scripts/webhook-deliveries.js --errors-only true` (in the `observe-whatsapp` skill).
+- Re-send a test delivery to the endpoint: `node scripts/test.js --webhook-id <id>`.
+- Full checklist: `references/webhooks-overview.md` (Troubleshooting section).
+
 Always verify signatures. See:
 - `references/webhooks-overview.md`
 - `references/webhooks-reference.md`

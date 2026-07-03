@@ -75,6 +75,59 @@ If any variables appear in HEADER or BODY, you must include examples:
 - POSITIONAL: `example.header_text` and 2D `example.body_text`.
 - NAMED: `example.header_text_named_params` and `example.body_text_named_params`.
 
+## Troubleshooting: why did my template get rejected?
+
+Kapso forwards create/update calls straight to Meta, so a bad template comes back as a
+Meta API error (often a bare **Bad Request** / `(#100)`) rather than a Kapso validation
+message. Map the failure to a cause and fix before resubmitting.
+
+### Bad Request (`(#100)`) at creation time — almost always example/variable mismatch
+
+The most common wall: the template has variables but the `example` block doesn't line up
+with them. Check, in order:
+
+| Cause | How to spot it | Fix |
+|-------|----------------|-----|
+| Missing example for a HEADER/BODY variable | A `{{...}}` placeholder has no matching entry in `example` | Provide exactly one example per variable in every component that uses variables. See [Components cheat sheet](#components-cheat-sheet-creation-time). |
+| Example keys don't match `parameter_format` | Using `example.body_text` (positional keys) while `parameter_format: NAMED`, or `example.body_text_named_params` while `POSITIONAL` | NAMED → `header_text_named_params` / `body_text_named_params`; POSITIONAL → `header_text` / 2D `body_text`. |
+| NAMED example `param_name` doesn't match the placeholder | `{{order_id}}` in text but the example lists `param_name: "orderId"` (or a typo) | Make every `param_name` exactly equal the `{{...}}` name (lowercase + underscores). |
+| Positional placeholders have gaps | Text uses `{{1}}` and `{{3}}` but not `{{2}}`, or examples don't cover every index | Positional variables must be sequential with no gaps, and `body_text` must supply one value per placeholder. |
+| Example count doesn't match variable count | 2 variables but 1 example (or vice-versa) | The number of examples must equal the number of variables in that component. |
+
+Positional body examples are a **2D array** (`[["ORDER-123", "Alex"]]`), not a flat one —
+a flat array is a frequent Bad Request cause.
+
+### Rejected for the wrong category
+
+Categories aren't interchangeable; Meta rejects (or silently re-categorizes) templates
+whose content doesn't fit:
+
+| Category | Allowed content | Common rejection |
+|----------|-----------------|-------------------|
+| MARKETING | Promotions, offers, announcements | — |
+| UTILITY | Transactional updates tied to an existing order/account | Promotional wording in a UTILITY template → rejected or bumped to MARKETING |
+| AUTHENTICATION | OTP / verification only | Custom body text (body is **fixed by Meta**), or no OTP button; also **requires Meta business verification** (see below) |
+
+If you need custom OTP wording, use **UTILITY** instead of AUTHENTICATION.
+
+### OAuthException 139000 — WABA not verified
+
+A `139000` (Integrity) error means the WhatsApp Business Account has not completed **Meta
+business verification**. This blocks AUTHENTICATION templates and can block sending. Fix:
+verify the business in Meta Security Center / Business Manager, then retry. This is the same
+error surfaced when Flows integrity checks fail.
+
+### Duplicate name / language
+
+Creating a template whose `name` + `language` already exists returns an error. List existing
+templates first (`node scripts/list-templates.mjs`) and pick a new name or update the
+existing one via `hsm_id`.
+
+### Button rejections
+
+See [Button ordering rules](#buttons): don't interleave QUICK_REPLY with URL/PHONE_NUMBER,
+and dynamic URL variables must sit at the end of the URL.
+
 ## Components cheat sheet (creation time)
 
 ### Header (TEXT, named)

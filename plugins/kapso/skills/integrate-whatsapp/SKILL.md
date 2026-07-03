@@ -228,6 +228,12 @@ Send-time:
 - URL buttons need a `button` component with `sub_type: "url"` and `index`
 - Media headers use either `id` or `link` (never both)
 
+Rejected at creation? Kapso forwards to Meta directly, so failures come back as Meta API
+errors (often a bare Bad Request / `(#100)`). See the "Troubleshooting: why did my template
+get rejected?" section in `references/templates-reference.md` for the cause → fix mapping
+(example/variable mismatches, category restrictions, and OAuthException 139000 business
+verification).
+
 ## WhatsApp Flows
 
 Use Flows to build native WhatsApp forms. Read `references/whatsapp-flows-spec.md` before editing Flow JSON.
@@ -377,7 +383,7 @@ node scripts/openapi-explore.mjs --spec platform search "setup link"
 - [references/webhooks-overview.md](references/webhooks-overview.md) - Webhook types, signature verification, retries
 - [references/webhooks-event-types.md](references/webhooks-event-types.md) - Available events
 - [references/webhooks-reference.md](references/webhooks-reference.md) - Webhook API and payload notes
-- [references/templates-reference.md](references/templates-reference.md) - Template creation rules, components cheat sheet, send-time components
+- [references/templates-reference.md](references/templates-reference.md) - Template creation rules, components cheat sheet, send-time components, rejection troubleshooting
 - [references/whatsapp-api-reference.md](references/whatsapp-api-reference.md) - Meta proxy payloads for messages and conversations
 - [references/whatsapp-cloud-api-js.md](references/whatsapp-cloud-api-js.md) - SDK usage for sending and reading messages
 - [references/whatsapp-flows-spec.md](references/whatsapp-flows-spec.md) - Flow JSON spec

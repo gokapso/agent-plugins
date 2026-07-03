@@ -42,6 +42,10 @@ Preferred path:
 2. Run number health: `kapso whatsapp numbers health --phone-number "<display-number>" --output human`
 3. Inspect related templates when relevant: `kapso whatsapp templates list --phone-number "<display-number>" --output json`
 
+For **template creation failures** (Bad Request on `whatsapp_templates/new`, rejected or
+recategorized templates, OAuthException 139000), see the "Template creation rejected" section
+in `references/triage-reference.md`, which maps each Meta failure to a cause and fix.
+
 Fallback path:
 1. Message errors: `node scripts/errors.js`
 2. API logs: `node scripts/api-logs.js`

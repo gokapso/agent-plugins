@@ -2,7 +2,7 @@
 
 ## Unreleased
 
-- Added unified project log search guidance and fallback scripts for Logs V2.
+- Added unified project log search guidance and fallback scripts.
 
 ## 0.1.0
 

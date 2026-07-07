@@ -88,7 +88,7 @@ Fallback path:
 
 | Script | Purpose |
 |--------|---------|
-| `log-search.js` | Search unified Logs V2 events across API, Meta, workflows, and webhook deliveries |
+| `log-search.js` | Search unified log events across API, Meta, workflows, and webhook deliveries |
 | `log-search-catalog.js` | List log-search sources, filters, and detail fields |
 | `errors.js` | List message errors |
 | `api-logs.js` | List external API logs |

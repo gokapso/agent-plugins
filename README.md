@@ -8,7 +8,7 @@ Missing an agent harness? Open an issue in this repository.
 
 - `integrate-whatsapp`: connect WhatsApp to products, onboard customers, configure webhooks, send messages, manage templates, and work with WhatsApp Flows.
 - `automate-whatsapp`: build workflows, triggers, functions, agents, app integrations, and database-backed automations.
-- `observe-whatsapp`: inspect delivery, webhook retries, API errors, number health, templates, and operational incidents.
+- `observe-whatsapp`: search unified project logs, inspect delivery, webhook retries, API errors, workflow events, number health, templates, and operational incidents.
 - Kapso MCP server configs for remote authenticated access to Kapso.
 - Safety guidance, examples, and validation scripts for release checks.
 
@@ -71,7 +71,7 @@ codex plugin install kapso@kapso
 codex mcp login kapso
 ```
 
-Direct API fallback scripts use:
+Direct API fallback scripts, including unified log search, use:
 
 ```bash
 export KAPSO_API_BASE_URL="https://api.kapso.ai"

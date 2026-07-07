@@ -14,12 +14,14 @@
 
 ## Webhook delivery failures
 
-1. Review recent delivery attempts.
-2. Check response status codes and error messages.
-3. Verify webhook URL availability and signature verification logic.
+1. Start with unified log search for the webhook ID, URL text, event name, or recent problem events.
+2. Review recent delivery attempts.
+3. Check response status codes and error messages.
+4. Verify webhook URL availability and signature verification logic.
 
 ## API errors
 
-1. Review external API call logs.
-2. Filter by status code or endpoint.
-3. Identify auth errors, rate limits, or upstream failures.
+1. Start with unified log search for the request ID, endpoint, phone ID, `wamid.*`, or response status.
+2. Review external API call logs when you need the older narrow list view.
+3. Filter by status code or endpoint.
+4. Identify auth errors, rate limits, or upstream failures.

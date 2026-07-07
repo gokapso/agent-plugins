@@ -8,7 +8,7 @@ Kapso is the WhatsApp API for developers. This plugin helps agents build, integr
 
 - Connect WhatsApp to products with setup links, connection detection, webhooks, sends, templates, media, and WhatsApp Flows.
 - Build Kapso workflows with WhatsApp triggers, AI steps, functions, app integrations, data tables, and execution controls.
-- Observe production issues by inspecting message delivery, webhook retries, API logs, template health, number health, and error patterns.
+- Observe production issues with unified project log search across API calls, Meta events, workflow events, webhook deliveries, message delivery, template health, number health, and error patterns.
 - Use bundled examples and references so agents can act with product-specific context instead of generic WhatsApp guidance.
 - Keep risky operations behind explicit user approval for sends, deploys, deletes, webhook changes, template creation, setup links, and workflow mutations.
 
@@ -32,7 +32,7 @@ codex plugin install kapso@kapso
 - Skills:
   - `integrate-whatsapp`: connect WhatsApp to products, onboard customers, configure webhooks, send messages, manage templates, and work with WhatsApp Flows.
   - `automate-whatsapp`: build workflows, triggers, functions, agents, app integrations, and database-backed automations.
-  - `observe-whatsapp`: inspect delivery, webhook retries, API errors, number health, templates, and operational incidents.
+  - `observe-whatsapp`: search unified project logs, inspect delivery, webhook retries, API errors, workflow events, number health, templates, and operational incidents.
 - Rule:
   - `kapso-safety`: classifies read-only, local write, and high-risk write operations, and requires explicit approval before high-risk writes.
 - MCP:
@@ -121,7 +121,7 @@ User prompt: "Why did this WhatsApp message fail, and did the webhook retry?"
 Expected behavior:
 
 - The agent uses the `observe-whatsapp` skill.
-- It gathers message details, delivery history, API errors, webhook deliveries, and number health.
+- It starts with unified log search, then gathers message details, delivery history, API errors, webhook deliveries, and number health as needed.
 - It returns a concise diagnosis with next actions and escalation paths.
 
 ## Safety

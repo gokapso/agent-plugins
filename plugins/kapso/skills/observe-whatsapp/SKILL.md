@@ -1,13 +1,13 @@
 ---
 name: observe-whatsapp
-description: "Observe and troubleshoot WhatsApp in Kapso: debug message delivery, inspect webhook deliveries/retries, triage API errors, and run health checks. Use when investigating production issues, message failures, or webhook delivery problems."
+description: "Observe and troubleshoot WhatsApp in Kapso: search operational logs, debug message delivery, inspect webhook deliveries/retries, triage API errors, and run health checks. Use when investigating production issues, message failures, API calls, workflow execution issues, or webhook delivery problems."
 ---
 
 # Observe WhatsApp
 
 ## When to use
 
-Use this skill for operational diagnostics: message delivery investigation, webhook delivery debugging, error triage, and WhatsApp health checks.
+Use this skill for operational diagnostics: unified project log search, message delivery investigation, webhook delivery debugging, error triage, workflow execution investigation, and WhatsApp health checks.
 
 ## Setup
 
@@ -38,14 +38,31 @@ Fallback path:
 ### Triage errors
 
 Preferred path:
-1. Confirm project and number state: `kapso status`
-2. Run number health: `kapso whatsapp numbers health --phone-number "<display-number>" --output human`
-3. Inspect related templates when relevant: `kapso whatsapp templates list --phone-number "<display-number>" --output json`
+1. Search cross-source logs first when you have a request ID, `wamid.*`, endpoint, webhook ID, workflow execution ID, phone number, or recent time window:
+   `kapso logs search --query "<identifier-or-text>" --period 24h --limit 20 --output json`
+2. Narrow by source when known:
+   `kapso logs search --source external_api_log --query "/messages" --problems-only --output json`
+3. Confirm project and number state: `kapso status`
+4. Run number health: `kapso whatsapp numbers health --phone-number "<display-number>" --output human`
+5. Inspect related templates when relevant: `kapso whatsapp templates list --phone-number "<display-number>" --output json`
+
+MCP path:
+- If the Kapso MCP server is connected, use `search_logs` for cross-resource diagnostics before older narrow tools.
+- Good starting inputs: `query`, `period`, `source`, `problems_only`, `limit`, and `filters` as `{key, value}` entries.
+- Sources: `external_api_log`, `whatsapp_webhook_event`, `flow_event`, `webhook_delivery`.
 
 Fallback path:
-1. Message errors: `node scripts/errors.js`
-2. API logs: `node scripts/api-logs.js`
-3. Webhook deliveries: `node scripts/webhook-deliveries.js`
+1. Unified log search: `node scripts/log-search.js --query "<identifier-or-text>" --period 24h --limit 20`
+2. Discover log-search filters and sources: `node scripts/log-search-catalog.js`
+3. Message errors: `node scripts/errors.js`
+4. API logs: `node scripts/api-logs.js`
+5. Webhook deliveries: `node scripts/webhook-deliveries.js`
+
+Use direct API filters when you know the indexed field:
+```bash
+node scripts/log-search.js --source api --problems-only true --filter response_status=500 --filter endpoint_contains=/messages
+node scripts/log-search.js --source workflows --filter flow_execution_id=exec_123 --limit 20
+```
 
 ### Run health checks
 
@@ -71,6 +88,8 @@ Fallback path:
 
 | Script | Purpose |
 |--------|---------|
+| `log-search.js` | Search unified Logs V2 events across API, Meta, workflows, and webhook deliveries |
+| `log-search-catalog.js` | List log-search sources, filters, and detail fields |
 | `errors.js` | List message errors |
 | `api-logs.js` | List external API logs |
 | `webhook-deliveries.js` | List webhook delivery attempts |
@@ -95,20 +114,22 @@ npm i
 
 Examples:
 ```bash
-node scripts/openapi-explore.mjs --spec platform search "webhook deliveries"
-node scripts/openapi-explore.mjs --spec platform op listWebhookDeliveries
-node scripts/openapi-explore.mjs --spec platform schema WebhookDelivery
+node scripts/openapi-explore.mjs --spec platform search "log search"
+node scripts/openapi-explore.mjs --spec platform op searchLogs
+node scripts/openapi-explore.mjs --spec platform op getLogSearchCatalog
 ```
 
 ## Notes
 
 - For webhook setup (create/update/delete, signature verification, event types), use `integrate-whatsapp`.
 - Prefer resolving a display phone number to the canonical `phone_number_id` before deep debugging.
-- Keep the scripts as the fallback path when the CLI is unavailable or when you need API-log or webhook-delivery inspection.
+- Prefer unified log search before older narrow tools when the user gives a request ID, WhatsApp `wamid.*`, endpoint, webhook ID, workflow execution ID, phone ID, conversation, or recent incident window.
+- Keep the scripts as the fallback path when the CLI or MCP is unavailable.
 
 ## References
 
 - [references/message-debugging-reference.md](references/message-debugging-reference.md) - Message debugging guide
+- [references/log-search-reference.md](references/log-search-reference.md) - Unified log search guide
 - [references/triage-reference.md](references/triage-reference.md) - Error triage guide
 - [references/health-reference.md](references/health-reference.md) - Health check guide
 
@@ -122,8 +143,8 @@ node scripts/openapi-explore.mjs --spec platform schema WebhookDelivery
 [observe-whatsapp file map]|root: .
 |.:{package.json,SKILL.md}
 |assets:{health-example.json,message-debugging-example.json,triage-example.json}
-|references:{health-reference.md,message-debugging-reference.md,triage-reference.md}
-|scripts:{api-logs.js,errors.js,lookup-conversation.js,message-details.js,messages.js,openapi-explore.mjs,overview.js,webhook-deliveries.js,whatsapp-health.js}
+|references:{health-reference.md,log-search-reference.md,message-debugging-reference.md,triage-reference.md}
+|scripts:{api-logs.js,errors.js,log-search-catalog.js,log-search.js,lookup-conversation.js,message-details.js,messages.js,openapi-explore.mjs,overview.js,webhook-deliveries.js,whatsapp-health.js}
 |scripts/lib/messages:{args.js,kapso-api.js}
 |scripts/lib/status:{args.js,kapso-api.js}
 |scripts/lib/triage:{args.js,kapso-api.js}

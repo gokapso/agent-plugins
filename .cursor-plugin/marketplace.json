@@ -5,13 +5,13 @@
     "email": "dev@kap.so"
   },
   "metadata": {
-    "description": "Kapso agent plugins for building, integrating, searching logs, and observing WhatsApp agents."
+    "description": "Kapso agent plugins for building, integrating, searching logs, and observing WhatsApp automations and Project Event workflows."
   },
   "plugins": [
     {
       "name": "kapso",
       "source": "plugins/kapso",
-      "description": "Build, integrate, search logs, and observe Kapso WhatsApp agents."
+      "description": "Build, integrate, search logs, and observe Kapso WhatsApp automations and Project Event workflows."
     }
   ]
 }

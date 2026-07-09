@@ -2,15 +2,15 @@
 
 ## Description
 
-Kapso is the WhatsApp API for developers. This plugin helps agents build, integrate, and observe WhatsApp automations through Kapso skills, helper scripts, examples, and a remote MCP connection.
+Kapso is the WhatsApp API for developers. This plugin helps agents build, integrate, and observe WhatsApp automations and Project Event workflows through Kapso skills, helper scripts, examples, and a remote MCP connection.
 
 ## Features
 
 - Connect WhatsApp to products with setup links, connection detection, webhooks, sends, templates, media, and WhatsApp Flows.
-- Build Kapso workflows with WhatsApp triggers, AI steps, functions, app integrations, data tables, and execution controls.
+- Build Kapso workflows with WhatsApp and Project Event triggers, Project Event emissions, AI steps, functions, app integrations, data tables, and execution controls.
 - Observe production issues with unified project log search across API calls, Meta events, workflow events, webhook deliveries, message delivery, template health, number health, and error patterns.
 - Use bundled examples and references so agents can act with product-specific context instead of generic WhatsApp guidance.
-- Keep risky operations behind explicit user approval for sends, deploys, deletes, webhook changes, template creation, setup links, and workflow mutations.
+- Keep risky operations behind explicit user approval for sends, Project Event emissions, deploys, deletes, webhook changes, template creation, setup links, and workflow mutations.
 
 ## Installation
 
@@ -31,7 +31,7 @@ codex plugin install kapso@kapso
 
 - Skills:
   - `integrate-whatsapp`: connect WhatsApp to products, onboard customers, configure webhooks, send messages, manage templates, and work with WhatsApp Flows.
-  - `automate-whatsapp`: build workflows, triggers, functions, agents, app integrations, and database-backed automations.
+  - `automate-whatsapp`: build workflows with WhatsApp and Project Event triggers, event emissions, functions, agents, app integrations, and database-backed automations.
   - `observe-whatsapp`: search unified project logs, inspect delivery, webhook retries, API errors, workflow events, number health, templates, and operational incidents.
 - Rule:
   - `kapso-safety`: classifies read-only, local write, and high-risk write operations, and requires explicit approval before high-risk writes.
@@ -114,6 +114,16 @@ Expected behavior:
 - It drafts or updates a workflow graph with WhatsApp trigger, wait, decide, function, and agent nodes.
 - It validates the graph before suggesting deployment.
 
+### React to a Project Event
+
+User prompt: "When a conversation gets a CSAT score under 3, open a recovery workflow and notify the team."
+
+Expected behavior:
+
+- The agent uses the `automate-whatsapp` skill.
+- It creates or updates a `project_event` trigger with event-name and property filters.
+- It uses Project Events for durable scores or labels, and avoids emitting more events from a project-event-triggered workflow.
+
 ### Debug a Failed Message
 
 User prompt: "Why did this WhatsApp message fail, and did the webhook retry?"
@@ -126,7 +136,7 @@ Expected behavior:
 
 ## Safety
 
-Read-only inspection and local validation are safe defaults. Real sends, flow publishes, deletes, webhook updates, template creates, function deploys, trigger changes, and customer/setup-link writes require explicit user approval.
+Read-only inspection and local validation are safe defaults. Real sends, Project Event emissions, flow publishes, deletes, webhook updates, template creates, function deploys, trigger changes, and customer/setup-link writes require explicit user approval.
 
 The helper scripts reject localhost and plain HTTP API base URLs by default so API keys are not accidentally sent to an unintended endpoint. Use `KAPSO_API_ALLOW_LOCALHOST=true` only for trusted local development, and `KAPSO_API_ALLOW_INSECURE_HTTP=true` only for trusted development hosts.
 

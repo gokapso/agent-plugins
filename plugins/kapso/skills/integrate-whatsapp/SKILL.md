@@ -193,6 +193,7 @@ Create:
 - Envelope: `inbox_embed`
 - Public scopes: `project`, `customer`, `phone_number`
 - `scope_id` is blank for `project`, a customer UUID for `customer`, and WhatsApp `phone_number_id` for `phone_number`
+- `language` controls the embedded inbox UI language; supported values are `en` and `es`
 - Create returns `token` and `embed_url` once. Store `embed_url`; list/get/update omit secrets.
 
 Example:
@@ -203,7 +204,8 @@ Example:
     "scope_type": "phone_number",
     "scope_id": "1234567890",
     "allowed_origins": ["https://app.example.com"],
-    "default_mode": "system"
+    "default_mode": "system",
+    "language": "es"
   }
 }
 ```
@@ -281,6 +283,7 @@ async function handler(request, env) {
 
 ### Troubleshooting
 
+- Search Logs before drilling into per-resource endpoints: `kapso logs search --query "<wamid-flow-id-request-id-or-endpoint>" --period 7d --source all --limit 20 --output json`
 - Preview shows `"flow_token is missing"`: flow is dynamic without a data endpoint. Attach one and refresh.
 - Encryption setup errors: enable encryption in Settings for the phone number/WABA.
 - OAuthException 139000 (Integrity): WABA must be verified in Meta security center.

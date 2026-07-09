@@ -1,7 +1,7 @@
 {
   "name": "kapso",
   "version": "0.1.0",
-  "description": "Build, integrate, search logs, and observe Kapso WhatsApp agents with Codex.",
+  "description": "Build, integrate, search logs, and observe Kapso WhatsApp automations and Project Event workflows with Codex.",
   "author": {
     "name": "Kapso",
     "email": "dev@kap.so",
@@ -21,8 +21,8 @@
   "mcpServers": "./.mcp.json",
   "interface": {
     "displayName": "Kapso",
-    "shortDescription": "Build, integrate, search logs, and observe Kapso WhatsApp agents from Codex.",
-    "longDescription": "Kapso is the WhatsApp API for developers. This plugin helps Codex onboard customers to WhatsApp, send and receive messages, manage templates and flows, build workflow automations, deploy functions, and debug production delivery, workflow, API, or webhook issues with unified log search and focused Kapso context.",
+    "shortDescription": "Build, integrate, search logs, and observe Kapso WhatsApp automations and Project Event workflows from Codex.",
+    "longDescription": "Kapso is the WhatsApp API for developers. This plugin helps Codex onboard customers to WhatsApp, send and receive messages, manage templates and flows, build workflow automations with Project Event triggers and emissions, deploy functions, and debug production delivery, workflow, API, or webhook issues with unified log search and focused Kapso context.",
     "developerName": "Kapso",
     "category": "Developer Tools",
     "capabilities": [

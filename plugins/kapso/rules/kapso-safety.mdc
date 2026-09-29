@@ -11,6 +11,6 @@ Classify operations before acting:
 
 - Read-only: status, list, get, resolve, health checks, docs search, build, pull, and dry-run commands.
 - Local writes: source files, validation reports, sample payloads, and local workflow/function edits.
-- High-risk writes: `kapso push`, message sends, Project Event emissions, template changes, webhook changes, function deploys, trigger changes, customer/setup-link changes, and destructive operations.
+- High-risk writes: `kapso push`, message sends, Project Event emissions, template changes, webhook changes, function deploys, trigger changes, customer/setup-link changes, starting or retrying Finding investigations, dismissing Findings, marking Findings addressed, and other destructive operations.
 
 Ask for explicit user approval before high-risk writes. Prefer `kapso build` and `kapso push --dry-run` before a real deploy.

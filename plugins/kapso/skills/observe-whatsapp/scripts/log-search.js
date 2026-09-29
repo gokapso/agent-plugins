@@ -5,6 +5,13 @@ const SOURCE_ALIASES = new Map([
   ['all', 'all'],
   ['api', 'external_api_log'],
   ['external_api_log', 'external_api_log'],
+  ['messages', 'whatsapp_message_event'],
+  ['message', 'whatsapp_message_event'],
+  ['whatsapp_message_event', 'whatsapp_message_event'],
+  ['functions', 'functions'],
+  ['function', 'functions'],
+  ['function_invocation_event', 'function_invocation_event'],
+  ['function_log_event', 'function_log_event'],
   ['flow', 'flow_event'],
   ['flows', 'flow_event'],
   ['workflow', 'flow_event'],
@@ -33,7 +40,7 @@ async function main() {
         {
           ok: true,
           usage:
-            'node scripts/log-search.js [--query <text>] [--period <24h|7d|30d|context>] [--source <all|api|meta|workflows|webhooks>] [--problems-only true|false] [--limit <n>] [--cursor <token>] [--around <iso8601>] [--highlight-event-id <id>] [--highlight-resource-id <id>] [--filter <key=value> ...] [--filters-json <json>]',
+            'node scripts/log-search.js [--query <text>] [--period <24h|7d|30d|context>] [--source <all|api|meta|messages|workflows|functions|webhooks>] [--problems-only true|false] [--limit <n>] [--cursor <token>] [--around <iso8601>] [--highlight-event-id <id>] [--highlight-resource-id <id>] [--filter <key=value> ...] [--filters-json <json>]',
           notes: [
             'Uses GET /platform/v1/log_search when no filters are provided.',
             'Uses POST /platform/v1/log_search when --filter or --filters-json is provided.',

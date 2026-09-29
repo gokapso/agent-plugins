@@ -51,6 +51,19 @@ if (manifest.mcpServers !== "./.mcp.json") {
 ensureRelativeFile("./.mcp.json", "mcpServers");
 
 const iface = manifest.interface ?? {};
+for (const [field, max] of Object.entries({ displayName: 30, shortDescription: 30, longDescription: 4000, developerName: 80 })) {
+  if (typeof iface[field] === "string" && [...iface[field]].length > max) {
+    errors.push(`interface.${field} exceeds the public submission limit of ${max} characters`);
+  }
+}
+for (const field of ["websiteURL", "supportURL", "privacyPolicyURL", "termsOfServiceURL"]) {
+  try {
+    const url = new URL(iface[field]);
+    if (url.protocol !== "https:" || url.username || url.password) throw new Error();
+  } catch {
+    errors.push(`interface.${field} must be an HTTPS URL without credentials`);
+  }
+}
 for (const field of ["displayName", "shortDescription", "longDescription", "developerName", "category"]) {
   requireString(iface, field, `interface.${field}`);
 }
@@ -61,6 +74,9 @@ if (!Array.isArray(iface.capabilities) || !iface.capabilities.every((value) => t
 
 if (!Array.isArray(iface.defaultPrompt) || iface.defaultPrompt.length === 0) {
   errors.push("interface.defaultPrompt must be a non-empty array");
+}
+if (Array.isArray(iface.defaultPrompt) && (iface.defaultPrompt.length > 3 || iface.defaultPrompt.some((prompt) => typeof prompt !== "string" || [...prompt].length > 128))) {
+  errors.push("interface.defaultPrompt must contain at most three prompts of at most 128 characters");
 }
 
 if (iface.brandColor && !hexColor.test(iface.brandColor)) {

@@ -2,7 +2,7 @@
   "agent_node_config": {
     "node_type": "agent",
     "config": {
-      "system_prompt": "Inspect the mounted repository before answering. Read the README and the most relevant files under /workspace/repos/acme-app, summarize the architecture, and then propose the smallest safe change.",
+      "system_prompt": "Inspect the mounted repository before answering. Read the README and the most relevant files under /workspace/repos/agent-plugins, summarize the architecture, and then propose the smallest safe change.",
       "provider_model_id": "uuid",
       "max_iterations": 20,
       "max_tokens": 8192,
@@ -15,9 +15,9 @@
       "flow_agent_resources": [
         {
           "resource_type": "github_repository",
-          "repo_url": "https://github.com/acme/acme-app",
+          "repo_url": "https://github.com/gokapso/agent-plugins",
           "branch": "main",
-          "pat": "github_pat_replace_me"
+          "auth_type": "public"
         }
       ],
       "flow_agent_webhooks": [],

@@ -1,8 +1,8 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
   "name": "kapso",
-  "version": "0.1.0",
-  "description": "Kapso plugins for Claude Code, including WhatsApp automation, Project Event workflows, integration, log search, and observability skills.",
+  "version": "0.1.1",
+  "description": "Kapso plugins for Claude Code, including WhatsApp automation, Project Event workflows, integration, Findings, log search, and observability skills.",
   "owner": {
     "name": "Kapso",
     "url": "https://kapso.ai"
@@ -10,8 +10,8 @@
   "plugins": [
     {
       "name": "kapso",
-      "description": "Build, integrate, search logs, and observe Kapso WhatsApp automations and Project Event workflows.",
-      "version": "0.1.0",
+      "description": "Build, integrate, investigate Findings, search logs, and observe Kapso WhatsApp automations and Project Event workflows.",
+      "version": "0.1.1",
       "author": {
         "name": "Kapso",
         "url": "https://kapso.ai"

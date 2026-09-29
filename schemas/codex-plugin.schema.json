@@ -17,20 +17,44 @@
     "interface"
   ],
   "properties": {
-    "name": { "type": "string", "minLength": 1 },
-    "version": { "$ref": "shared-defs.schema.json#/$defs/semver" },
-    "description": { "type": "string", "minLength": 1 },
-    "author": { "$ref": "shared-defs.schema.json#/$defs/person" },
-    "homepage": { "$ref": "shared-defs.schema.json#/$defs/httpsUrl" },
-    "repository": { "$ref": "shared-defs.schema.json#/$defs/httpsUrl" },
-    "license": { "type": "string", "minLength": 1 },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "version": {
+      "$ref": "shared-defs.schema.json#/$defs/semver"
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1
+    },
+    "author": {
+      "$ref": "shared-defs.schema.json#/$defs/person"
+    },
+    "homepage": {
+      "$ref": "shared-defs.schema.json#/$defs/httpsUrl"
+    },
+    "repository": {
+      "$ref": "shared-defs.schema.json#/$defs/httpsUrl"
+    },
+    "license": {
+      "type": "string",
+      "minLength": 1
+    },
     "keywords": {
       "type": "array",
       "minItems": 1,
-      "items": { "type": "string", "minLength": 1 }
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
     },
-    "skills": { "$ref": "shared-defs.schema.json#/$defs/relativePath" },
-    "mcpServers": { "$ref": "shared-defs.schema.json#/$defs/relativePath" },
+    "skills": {
+      "$ref": "shared-defs.schema.json#/$defs/relativePath"
+    },
+    "mcpServers": {
+      "$ref": "shared-defs.schema.json#/$defs/relativePath"
+    },
     "interface": {
       "type": "object",
       "additionalProperties": false,
@@ -48,38 +72,104 @@
         "brandColor",
         "composerIcon",
         "logo",
-        "screenshots"
+        "screenshots",
+        "supportURL",
+        "termsOfServiceURL"
       ],
       "properties": {
-        "displayName": { "type": "string", "minLength": 1 },
-        "shortDescription": { "type": "string", "minLength": 1 },
-        "longDescription": { "type": "string", "minLength": 1 },
-        "developerName": { "type": "string", "minLength": 1 },
-        "category": { "type": "string", "minLength": 1 },
+        "displayName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 30
+        },
+        "shortDescription": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 30
+        },
+        "longDescription": {
+          "type": "string",
+          "minLength": 1
+        },
+        "developerName": {
+          "type": "string",
+          "minLength": 1
+        },
+        "category": {
+          "type": "string",
+          "minLength": 1
+        },
         "capabilities": {
           "type": "array",
           "minItems": 1,
-          "items": { "type": "string", "minLength": 1 }
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
         },
         "defaultPrompt": {
           "type": "array",
           "minItems": 3,
-          "items": { "type": "string", "minLength": 1 }
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "maxItems": 3
         },
-        "websiteURL": { "$ref": "shared-defs.schema.json#/$defs/httpsUrl" },
-        "privacyPolicyURL": { "$ref": "shared-defs.schema.json#/$defs/httpsUrl" },
-        "documentationURL": { "$ref": "shared-defs.schema.json#/$defs/httpsUrl" },
+        "websiteURL": {
+          "$ref": "shared-defs.schema.json#/$defs/httpsUrl"
+        },
+        "privacyPolicyURL": {
+          "$ref": "shared-defs.schema.json#/$defs/httpsUrl"
+        },
+        "documentationURL": {
+          "$ref": "shared-defs.schema.json#/$defs/httpsUrl"
+        },
         "brandColor": {
           "type": "string",
           "pattern": "^#[0-9A-Fa-f]{6}$"
         },
-        "composerIcon": { "$ref": "shared-defs.schema.json#/$defs/relativePath" },
-        "logo": { "$ref": "shared-defs.schema.json#/$defs/relativePath" },
+        "composerIcon": {
+          "$ref": "shared-defs.schema.json#/$defs/relativePath"
+        },
+        "logo": {
+          "$ref": "shared-defs.schema.json#/$defs/relativePath"
+        },
         "screenshots": {
           "type": "array",
-          "items": { "$ref": "shared-defs.schema.json#/$defs/relativePath" }
+          "items": {
+            "$ref": "shared-defs.schema.json#/$defs/relativePath"
+          }
+        },
+        "supportURL": {
+          "$ref": "shared-defs.schema.json#/$defs/httpsUrl"
+        },
+        "termsOfServiceURL": {
+          "$ref": "shared-defs.schema.json#/$defs/httpsUrl"
         }
       }
+    },
+    "extensions": {
+      "type": "object",
+      "properties": {
+        "com.openai": {
+          "type": "object",
+          "properties": {
+            "review": {
+              "type": "object"
+            },
+            "publication": {
+              "type": "object"
+            },
+            "onboardingSkill": {
+              "$ref": "shared-defs.schema.json#/$defs/relativePath"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
     }
   }
 }

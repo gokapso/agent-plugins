@@ -2,15 +2,15 @@
 
 ## Description
 
-Kapso is the WhatsApp API for developers. This plugin helps agents build, integrate, and observe WhatsApp automations and Project Event workflows through Kapso skills, helper scripts, examples, and a remote MCP connection.
+Kapso is the WhatsApp API for developers. This plugin helps agents build, integrate, and observe WhatsApp automations, Project Event workflows, and recurring project Findings through Kapso skills, helper scripts, examples, and a remote MCP connection.
 
 ## Features
 
 - Connect WhatsApp to products with setup links, connection detection, webhooks, sends, templates, media, and WhatsApp Flows.
 - Build Kapso workflows with WhatsApp and Project Event triggers, Project Event emissions, AI steps, functions, app integrations, data tables, and execution controls.
-- Observe production issues with unified project log search across API calls, Meta events, workflow events, webhook deliveries, message delivery, template health, number health, and error patterns.
+- Observe production issues with Findings and unified project log search across API calls, Meta events, workflow events, webhook deliveries, message delivery, template health, number health, and error patterns.
 - Use bundled examples and references so agents can act with product-specific context instead of generic WhatsApp guidance.
-- Keep risky operations behind explicit user approval for sends, Project Event emissions, deploys, deletes, webhook changes, template creation, setup links, and workflow mutations.
+- Keep risky operations behind explicit user approval for sends, Project Event emissions, deploys, deletes, webhook changes, template creation, setup links, workflow mutations, and Finding lifecycle changes.
 
 ## Installation
 
@@ -32,11 +32,11 @@ codex plugin install kapso@kapso
 - Skills:
   - `integrate-whatsapp`: connect WhatsApp to products, onboard customers, configure webhooks, send messages, manage templates, and work with WhatsApp Flows.
   - `automate-whatsapp`: build workflows with WhatsApp and Project Event triggers, event emissions, functions, agents, app integrations, and database-backed automations.
-  - `observe-whatsapp`: search unified project logs, inspect delivery, webhook retries, API errors, workflow events, number health, templates, and operational incidents.
+  - `observe-whatsapp`: investigate recurring Findings, search unified project logs, inspect delivery, webhook retries, API errors, workflow events, number health, templates, and operational incidents.
 - Rule:
   - `kapso-safety`: classifies read-only, local write, and high-risk write operations, and requires explicit approval before high-risk writes.
 - MCP:
-  - `kapso`: remote authenticated MCP server at `https://api.kapso.ai/mcp`.
+  - `kapso`: remote authenticated MCP server at `https://api.kapso.ai/mcp`, including grouped project Findings actions when used for Findings work.
 
 ## Prerequisites
 
@@ -134,9 +134,19 @@ Expected behavior:
 - It starts with unified log search, then gathers message details, delivery history, API errors, webhook deliveries, and number health as needed.
 - It returns a concise diagnosis with next actions and escalation paths.
 
+### Review a Recurring Project Problem
+
+User prompt: "Review the recurring problems in my project and investigate the most important one."
+
+Expected behavior:
+
+- The agent uses the `observe-whatsapp` skill and the Kapso MCP `findings` tool.
+- It lists Findings, reads the selected Finding and its bounded evidence, and distinguishes the Finding's aggregate signal from the underlying Project Events and operational Logs.
+- It asks for approval before starting the specialized investigation, then verifies the resulting investigation state.
+
 ## Safety
 
-Read-only inspection and local validation are safe defaults. Real sends, Project Event emissions, flow publishes, deletes, webhook updates, template creates, function deploys, trigger changes, and customer/setup-link writes require explicit user approval.
+Read-only inspection and local validation are safe defaults. Real sends, Project Event emissions, flow publishes, deletes, webhook updates, template creates, function deploys, trigger changes, customer/setup-link writes, starting or retrying Finding investigations, dismissing Findings, and marking Findings addressed require explicit user approval.
 
 The helper scripts reject localhost and plain HTTP API base URLs by default so API keys are not accidentally sent to an unintended endpoint. Use `KAPSO_API_ALLOW_LOCALHOST=true` only for trusted local development, and `KAPSO_API_ALLOW_INSECURE_HTTP=true` only for trusted development hosts.
 

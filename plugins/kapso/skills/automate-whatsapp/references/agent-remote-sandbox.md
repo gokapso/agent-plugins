@@ -29,7 +29,7 @@ Each repository entry in `flow_agent_resources` should include:
   "resource_type": "github_repository",
   "repo_url": "https://github.com/org/repo",
   "branch": "main",
-  "pat": "github_pat_replace_me"
+  "auth_type": "public"
 }
 ```
 
@@ -37,8 +37,10 @@ Rules:
 - Use a repository root URL only
 - Valid examples: `https://github.com/org/repo`, `https://github.com/org/repo.git`, `git@github.com:org/repo.git`
 - Do not use GitHub file URLs, subdirectory URLs, or `tree/...` URLs
-- Each repository needs a GitHub Personal Access Token (PAT)
-- Saved responses do not return the PAT; they only return metadata like `has_pat: true`
+- Choose `auth_type: "public"` for public repositories (no credentials; clears stored authentication).
+- For private repositories, use `auth_type: "pat"` with `pat`, or `auth_type: "github_app"` with `github_app_installation_id` from an active project connection that grants repository access.
+- Saved responses omit credentials and return metadata such as `auth_type`, `has_pat`, `has_github_app`, and `github_app_installation_id`. Never commit real PATs to workflow source.
+- Imports or duplicates across projects do not carry App connections: `imported_missing_github_app: true` requires selecting a valid connection before execution.
 
 ## Mounted paths inside the sandbox
 

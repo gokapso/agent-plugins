@@ -8,7 +8,7 @@ Missing an agent harness? Open an issue in this repository.
 
 - `integrate-whatsapp`: connect WhatsApp to products, onboard customers, configure webhooks, send messages, manage templates, and work with WhatsApp Flows.
 - `automate-whatsapp`: build workflows with WhatsApp and Project Event triggers, event emissions, functions, agents, app integrations, and database-backed automations.
-- `observe-whatsapp`: search unified project logs, inspect delivery, webhook retries, API errors, workflow events, number health, templates, and operational incidents.
+- `observe-whatsapp`: investigate recurring Findings, search unified project logs, inspect delivery, webhook retries, API errors, workflow events, number health, templates, and operational incidents.
 - Kapso MCP server configs for remote authenticated access to Kapso.
 - Safety guidance, examples, and validation scripts for release checks.
 
@@ -87,8 +87,10 @@ npm run check:syntax
 
 CI runs both commands on every pull request and push to `main`.
 
+For OpenAI public-directory packaging and review, see [PUBLISHING.md](PUBLISHING.md). Build the submission ZIP with `python3 scripts/package-codex.py`.
+
 ## Safety
 
-The plugin treats read-only inspection and local validation as safe defaults. Actions that send messages, emit Project Events, deploy functions, mutate workflows, create templates, update webhooks, create setup links, or delete resources should be confirmed explicitly by the user before running.
+The plugin treats read-only inspection and local validation as safe defaults. Actions that send messages, emit Project Events, deploy functions, mutate workflows, create templates, update webhooks, create setup links, start or retry Finding investigations, dismiss Findings, mark Findings addressed, or delete resources should be confirmed explicitly by the user before running.
 
 Release checks reject local filesystem paths, obvious secret files, invalid JSON, unsafe remote MCP URLs, and incomplete marketplace metadata.

@@ -49,7 +49,7 @@ codex plugin marketplace add gokapso/agent-plugins
 Install the plugin:
 
 ```bash
-codex plugin install kapso@kapso
+codex plugin install app-69e50baf29a48191847ceec3bfd887a4@kapso
 ```
 
 You can also browse and install plugins interactively from Codex after adding the marketplace.
@@ -58,7 +58,7 @@ For local testing, add this repository directory as the marketplace root:
 
 ```bash
 codex plugin marketplace add /path/to/kapso-agent-plugins
-codex plugin install kapso@kapso
+codex plugin install app-69e50baf29a48191847ceec3bfd887a4@kapso
 ```
 
 ## Prerequisites
@@ -82,10 +82,11 @@ export KAPSO_API_KEY="..."
 
 ```bash
 npm run validate
+npm run test:integration
 npm run check:syntax
 ```
 
-CI runs both commands on every pull request and push to `main`.
+CI runs these commands on every pull request and push to `main`. The integration tests use offline API fixtures and compare supported requests and outputs against the original agent-skills baseline.
 
 For OpenAI public-directory packaging and review, see [PUBLISHING.md](PUBLISHING.md). Build the submission ZIP with `python3 scripts/package-codex.py`.
 

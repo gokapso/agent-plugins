@@ -27,5 +27,8 @@ jobs:
       - name: Validate plugin metadata
         run: npm run validate
 
+      - name: Test integration skill behavior
+        run: npm run test:integration
+
       - name: Check JavaScript syntax
         run: npm run check:syntax

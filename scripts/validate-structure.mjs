@@ -33,10 +33,13 @@ for (const file of jsonFiles) {
 const codexMarketplace = JSON.parse(
   fs.readFileSync(path.join(root, ".agents/plugins/marketplace.json"), "utf8")
 );
-const codexPlugin = codexMarketplace.plugins.find((plugin) => plugin.name === "kapso");
+const codexManifest = JSON.parse(
+  fs.readFileSync(path.join(root, "plugins/kapso/.codex-plugin/plugin.json"), "utf8")
+);
+const codexPlugin = codexMarketplace.plugins.find((plugin) => plugin.name === codexManifest.name);
 
 if (!codexPlugin) {
-  throw new Error("Codex marketplace must include the kapso plugin.");
+  throw new Error("Codex marketplace entry must match the plugin manifest name.");
 }
 
 if (codexPlugin.source?.path !== "./plugins/kapso") {

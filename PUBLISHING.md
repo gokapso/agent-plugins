@@ -10,7 +10,9 @@ Build the standalone Codex ZIP from the plugin directory, not the marketplace ro
 python3 scripts/package-codex.py
 ```
 
-The output is `dist/kapso-0.1.1-codex.zip`. It contains the Codex manifest, the existing remote MCP connection, all three skills and their supporting files, icons, license, and plugin documentation. Credentials, repository metadata, dependencies, and other harness manifests are excluded.
+The output is `dist/kapso-0.1.2-codex.zip`. It contains the Codex manifest, the existing remote MCP connection, all three skills and their supporting files, icons, license, and plugin documentation. Credentials, repository metadata, dependencies, and other harness manifests are excluded.
+
+The Codex manifest uses the existing submission identifier `app-69e50baf29a48191847ceec3bfd887a4`; keep it when uploading a replacement ZIP. The displayed plugin name remains Kapso. The integration skill is synchronized from agent-skills commit `6685971` in [PR #24](https://github.com/gokapso/agent-skills/pull/24), with the plugin's MCP guidance retained. The other two skills keep their existing plugin guidance.
 
 The manifest includes five positive and three negative review scenarios and release notes. These scenarios are prepared, **not yet run against a dedicated review account**. The ZIP can start a draft; it is not evidence that live review requirements have passed.
 

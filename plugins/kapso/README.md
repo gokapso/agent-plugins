@@ -24,7 +24,7 @@ Codex users can install from the custom marketplace:
 
 ```bash
 codex plugin marketplace add gokapso/agent-plugins
-codex plugin install kapso@kapso
+codex plugin install app-69e50baf29a48191847ceec3bfd887a4@kapso
 ```
 
 ## Components
@@ -148,11 +148,11 @@ Expected behavior:
 
 Read-only inspection and local validation are safe defaults. Real sends, Project Event emissions, flow publishes, deletes, webhook updates, template creates, function deploys, trigger changes, customer/setup-link writes, starting or retrying Finding investigations, dismissing Findings, and marking Findings addressed require explicit user approval.
 
-The helper scripts reject localhost and plain HTTP API base URLs by default so API keys are not accidentally sent to an unintended endpoint. Use `KAPSO_API_ALLOW_LOCALHOST=true` only for trusted local development, and `KAPSO_API_ALLOW_INSECURE_HTTP=true` only for trusted development hosts.
+The integration helper scripts require HTTPS and reject authenticated request redirects. Use `KAPSO_ALLOW_INSECURE_HTTP=true` only for a trusted development endpoint. They redact recognized credential fields; set `KAPSO_SECRET_OUTPUT_FILE` to a new file in a private directory to capture a one-time secret with owner-only permissions. See the integration skill's [credential handling](skills/integrate-whatsapp/references/webhooks-reference.md#credential-handling).
 
 ## Privacy Policy
 
-See: https://kapso.ai/privacy
+See: https://kapso.com/privacy
 
 ## Support
 

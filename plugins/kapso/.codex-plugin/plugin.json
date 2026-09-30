@@ -1,6 +1,6 @@
 {
-  "name": "kapso",
-  "version": "0.1.1",
+  "name": "app-69e50baf29a48191847ceec3bfd887a4",
+  "version": "0.1.2",
   "description": "Build, integrate, investigate Findings, search logs, and observe Kapso WhatsApp automations and Project Event workflows with Codex.",
   "author": {
     "name": "Kapso",
@@ -22,7 +22,7 @@
   "interface": {
     "displayName": "Kapso",
     "shortDescription": "Build and debug WhatsApp",
-    "longDescription": "Kapso is the WhatsApp API for developers. This plugin helps Codex onboard customers to WhatsApp, send and receive messages, manage templates and flows, build workflow automations with Project Event triggers and emissions, investigate recurring project Findings, deploy functions, and debug production delivery, workflow, API, or webhook issues with unified log search and focused Kapso context. Requires a Kapso account and access to the connected project. Messaging, provisioning, workflows, and AI investigations may incur Kapso or Meta charges. Availability depends on your plan and WhatsApp permissions.",
+    "longDescription": "Kapso is the WhatsApp API for developers. This plugin helps Codex onboard customers to WhatsApp, send and receive messages, manage templates and flows, build workflow automations with Project Event triggers and emissions, investigate recurring project Findings, deploy functions, and debug production delivery, workflow, API, or webhook issues with unified log search and focused Kapso context. Requires a Kapso account and access to the connected project. Available operations depend on the connected project and WhatsApp permissions.",
     "developerName": "Kapso",
     "category": "Developer Tools",
     "capabilities": [
@@ -97,10 +97,10 @@
           ]
         },
         "commerce": false,
-        "commerce_description": "The plugin does not sell products or process payments. Kapso service usage and Meta messaging may incur charges."
+        "commerce_description": "The plugin does not sell products or process payments."
       },
       "publication": {
-        "release_notes": "Updated WhatsApp integration, workflow source sync, Project Events, Findings evidence, message/function log search, and sandbox repository authentication."
+        "release_notes": "Hardened WhatsApp connection callbacks, Flow authorization guidance, authenticated request transport, and credential output; synchronized integration skills from agent-skills."
       }
     }
   }

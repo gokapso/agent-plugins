@@ -5,7 +5,7 @@
   },
   "plugins": [
     {
-      "name": "kapso",
+      "name": "app-69e50baf29a48191847ceec3bfd887a4",
       "source": {
         "source": "local",
         "path": "./plugins/kapso"

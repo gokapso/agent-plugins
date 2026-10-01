@@ -100,7 +100,7 @@
         "commerce_description": "The plugin does not sell products or process payments."
       },
       "publication": {
-        "release_notes": "Hardened WhatsApp connection callbacks, Flow authorization guidance, authenticated request transport, and credential output; synchronized integration skills from agent-skills."
+        "release_notes": "Version 0.1.2 improves WhatsApp connection callback handling, HTTPS request safeguards, and credential redaction. It also clarifies WhatsApp Flow authorization guidance and updates the WhatsApp integration skill."
       }
     }
   }

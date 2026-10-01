@@ -175,11 +175,12 @@ ensureReadmeSections("plugins/kapso/README.md", [
   "Support"
 ]);
 
+const codexManifest = readJson("plugins/kapso/.codex-plugin/plugin.json");
 const marketplace = readJson(".agents/plugins/marketplace.json");
 if (marketplace) {
-  const plugin = marketplace.plugins?.find((entry) => entry.name === "kapso");
+  const plugin = marketplace.plugins?.find((entry) => entry.name === codexManifest?.name);
   if (!plugin) {
-    fail(".agents/plugins/marketplace.json must include the kapso plugin");
+    fail(".agents/plugins/marketplace.json entry must match the Codex plugin manifest name");
   } else {
     if (plugin.source?.source !== "local") fail("Codex marketplace source must be local");
     if (plugin.source?.path !== "./plugins/kapso") fail("Codex marketplace path must be ./plugins/kapso");
@@ -194,7 +195,6 @@ if (cursorMarketplace) {
   if (plugin && plugin.source !== "plugins/kapso") fail("Cursor marketplace source must be plugins/kapso");
 }
 
-const codexManifest = readJson("plugins/kapso/.codex-plugin/plugin.json");
 if (codexManifest) {
   if (codexManifest.repository !== "https://github.com/gokapso/agent-plugins") {
     fail("Codex manifest repository must point to the public agent-plugins repo");

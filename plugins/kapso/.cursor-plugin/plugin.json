@@ -1,7 +1,7 @@
 {
   "name": "kapso",
   "displayName": "Kapso",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Build, integrate, investigate Findings, search logs, and observe Kapso WhatsApp automations and Project Event workflows with Cursor.",
   "author": {
     "name": "Kapso",

@@ -84,13 +84,13 @@
               "description": "Open the requested WhatsApp connection path",
               "prompt": "Help me connect an existing WhatsApp Business App number using coexistence.",
               "tools_triggered": "status, kapso_setup_open",
-              "expected_behavior": "After OAuth project approval, preserve method coexistence and open the existing signup UI directly. Use the sole customer automatically; allow a choice if multiple customers exist. Show billing blockers accurately. Do not complete Meta authorization or connect a real number without the user operating the signup UI."
+              "expected_behavior": "After OAuth project approval, follow status and respect can_connect_whatsapp. Explain owner/admin permissions when setup is unavailable to a member. For authorized users, preserve method coexistence and open the existing signup UI directly. Use the sole customer automatically; require a business choice if multiple customers exist, even when one has a prior setup link. Resume the selected customer's interrupted attempt or show its actual retry/error state. Show billing blockers accurately. Do not complete Meta authorization or connect a real number without the user operating the signup UI."
             },
             {
               "description": "Read conversations and review a reply",
               "prompt": "Show the unread conversations in my review project and help me reply to the synthetic review contact.",
               "tools_triggered": "kapso_inbox_show_conversations, kapso_inbox_open",
-              "expected_behavior": "Use actual project-scoped conversation IDs from read tools to display cards and open the conversation inbox. The user reviews or edits the reply in the composer and sends from the UI. Do not invoke app-only send tools or claim a draft was sent."
+              "expected_behavior": "Use actual project-scoped conversation IDs from read tools to display cards and open the conversation inbox. The user reviews or edits the reply in the composer and sends from the UI. Do not invoke app-only send tools or claim a draft was sent. A started or unknown send outcome is checked against the original attempt and never automatically resent; unresolved outcomes require provider evidence. Do not report provider acceptance as confirmed delivery."
             }
           ],
           "negative": [

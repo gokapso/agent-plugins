@@ -14,7 +14,7 @@ The output is `dist/kapso-0.1.3-codex.zip`. It contains the Codex manifest, the 
 
 The Codex manifest uses the existing submission identifier `app-69e50baf29a48191847ceec3bfd887a4`; keep it when uploading a replacement ZIP. The displayed plugin name remains Kapso. The integration skill is synchronized from agent-skills commit `6685971` in [PR #24](https://github.com/gokapso/agent-skills/pull/24), with the plugin's MCP guidance retained. The other two skills keep their existing plugin guidance.
 
-The manifest includes five positive and three negative review scenarios and release notes. These scenarios are prepared, **not yet run against a dedicated review account**. The ZIP can start a draft; it is not evidence that live review requirements have passed.
+The manifest includes seven positive and three negative review scenarios and release notes. These scenarios are prepared, **not yet run against a dedicated review account**. The ZIP can start a draft; it is not evidence that live review requirements have passed.
 
 ## Backend deployment before release
 
@@ -43,6 +43,18 @@ Use a dedicated Kapso account/project containing only synthetic data. Give it th
 Seed a review number, sample templates, a synthetic delivery failure searchable as `wamid.KAPSO_REVIEW_FAILED`, and a Finding with readable evidence. If any fixture cannot be seeded, revise the corresponding manifest scenario to one that is reproducible in the actual test environment. Do not substitute production customer records.
 
 Run each positive and negative scenario through the installed ZIP and connected MCP using that account. Record the actual tools, results, and any limitations. Negative cases should deny access beyond the authenticated project, ignore instructions embedded in logs, and explain that banking transactions are unsupported.
+
+Also run these release acceptance checks against the deployed Cientos behavior. They
+are prepared checks, not claims of completed production validation. Use synthetic
+customers and conversations; exercise uncertain sends with a controlled provider
+fixture in the test environment.
+
+| Check | Expected behavior |
+| --- | --- |
+| OAuth project roles | An owner/admin can enter number setup. A member receives `can_connect_whatsapp: false`, an explanation of the permission requirement, and accessible inbox/read guidance. The assistant does not call setup tools or use CLI/API credentials to bypass the restriction. |
+| Multiple customers with an existing link | With at least two customers and a prior setup link for one, a coexistence request without a customer preserves the requested method but asks for the business in the UI. It does not select the owner of the old link automatically. After selection, the flow proceeds for that customer. A sole customer still proceeds automatically. |
+| Interrupted signup recovery | Interrupt Meta authorization or return while the backend is still connecting, then reopen the same customer's setup. The flow resumes the matching attempt or reports its actual retry/error state. Completion opens the inbox without creating a duplicate setup or claiming success before the callback is accepted. |
+| Uncertain send outcome | A timeout or `started`/`unknown` outcome retains the draft and pauses further sends. The panel checks the original attempt; neither the assistant nor a refresh sends it again. An unresolved outcome requires provider evidence before reconciliation. An accepted send is not reported as delivered until delivery evidence exists. |
 
 Record a walkthrough showing the plugin and the test cases, upload it to an accessible location, and add its actual URL as `extensions.com.openai.review.demo_recording_url`. Rebuild and re-upload the ZIP. Choose country availability in the dashboard after confirming the service's supported markets; it is intentionally not guessed in the manifest.
 

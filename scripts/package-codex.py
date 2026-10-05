@@ -7,8 +7,8 @@ from pathlib import Path
 
 root = Path(__file__).resolve().parents[1]
 plugin = root / "plugins" / "kapso"
-subprocess.run(["npm", "run", "validate"], cwd=root, check=True)
-subprocess.run(["npm", "run", "check:syntax"], cwd=root, check=True)
+subprocess.run(["bun", "run", "validate"], cwd=root, check=True)
+subprocess.run(["bun", "run", "check:syntax"], cwd=root, check=True)
 version = json.loads((plugin / ".codex-plugin/plugin.json").read_text())["version"]
 destination = Path(sys.argv[1]) if len(sys.argv) > 1 else root / "dist" / f"kapso-{version}-codex.zip"
 destination.parent.mkdir(parents=True, exist_ok=True)

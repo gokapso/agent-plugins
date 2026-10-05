@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.3
+
+- Added OAuth-first account creation, project approval, and original-request continuation guidance.
+- Added native signup path, conversation-card, and reviewed inbox reply instructions.
+- Kept app-only mutations in the user-operated UI and retained hardened direct API scripts.
+- Updated Codex listing metadata, review scenarios, and UI installation guidance.
+
 ## 0.1.2
 
 - Synced the integration skill from agent-skills commit `6685971`, retaining the plugin's MCP guidance.

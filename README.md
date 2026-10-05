@@ -49,7 +49,7 @@ codex plugin marketplace add gokapso/agent-plugins
 Install the plugin:
 
 ```bash
-codex plugin install app-69e50baf29a48191847ceec3bfd887a4@kapso
+codex plugin add app-69e50baf29a48191847ceec3bfd887a4@kapso
 ```
 
 You can also browse and install plugins interactively from Codex after adding the marketplace.
@@ -58,14 +58,15 @@ For local testing, add this repository directory as the marketplace root:
 
 ```bash
 codex plugin marketplace add /path/to/kapso-agent-plugins
-codex plugin install app-69e50baf29a48191847ceec3bfd887a4@kapso
+codex plugin add app-69e50baf29a48191847ceec3bfd887a4@kapso
 ```
 
 ## Prerequisites
 
-- A Kapso account and access to the project you want to operate.
+- Sign in or create a Kapso account during the host's Connect account flow, then approve project access.
 - Node.js 20+ for the bundled helper scripts.
-- For MCP auth in Codex, run:
+- Installing through the Codex UI requests account connection. No API key is needed.
+For CLI-installed plugins that still need authentication, run:
 
 ```bash
 codex mcp login kapso
@@ -81,9 +82,9 @@ export KAPSO_API_KEY="..."
 ## Validation
 
 ```bash
-npm run validate
-npm run test:integration
-npm run check:syntax
+bun run validate
+bun run test:integration
+bun run check:syntax
 ```
 
 CI runs these commands on every pull request and push to `main`. The integration tests use offline API fixtures and compare supported requests and outputs against the original agent-skills baseline.

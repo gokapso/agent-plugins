@@ -24,7 +24,7 @@ Codex users can install from the custom marketplace:
 
 ```bash
 codex plugin marketplace add gokapso/agent-plugins
-codex plugin install app-69e50baf29a48191847ceec3bfd887a4@kapso
+codex plugin add app-69e50baf29a48191847ceec3bfd887a4@kapso
 ```
 
 ## Components
@@ -40,7 +40,7 @@ codex plugin install app-69e50baf29a48191847ceec3bfd887a4@kapso
 
 ## Prerequisites
 
-- A Kapso account with access to the project or customer you want to operate.
+- Sign in or create a Kapso account during the host's Connect account flow, then approve project access.
 - Node.js 20+ for the bundled helper scripts.
 - Optional: Kapso CLI installed and authenticated.
 
@@ -49,7 +49,8 @@ npm install -g @kapso/cli
 kapso login
 ```
 
-For Codex MCP auth:
+Installing through the Codex UI requests account connection. No API key is needed.
+For CLI-installed plugins that still need authentication:
 
 ```bash
 codex mcp login kapso
@@ -84,7 +85,7 @@ If Cursor prompts for a server URL during manual setup, use:
 https://api.kapso.ai/mcp
 ```
 
-Codex users can authenticate the MCP server with:
+Codex users connect their account during UI installation or through the plugin's Connect account control. For a CLI installation that needs manual authentication:
 
 ```bash
 codex mcp login kapso

@@ -1,7 +1,7 @@
 {
   "name": "app-69e50baf29a48191847ceec3bfd887a4",
-  "version": "0.1.2",
-  "description": "Build, integrate, investigate Findings, search logs, and observe Kapso WhatsApp automations and Project Event workflows with Codex.",
+  "version": "0.1.3",
+  "description": "Connect your Kapso account, read and answer WhatsApp conversations, connect numbers, and build or debug WhatsApp automations with Codex.",
   "author": {
     "name": "Kapso",
     "email": "dev@kap.so",
@@ -21,8 +21,8 @@
   "mcpServers": "./.mcp.json",
   "interface": {
     "displayName": "Kapso",
-    "shortDescription": "Build and debug WhatsApp",
-    "longDescription": "Kapso is the WhatsApp API for developers. This plugin helps Codex onboard customers to WhatsApp, send and receive messages, manage templates and flows, build workflow automations with Project Event triggers and emissions, investigate recurring project Findings, deploy functions, and debug production delivery, workflow, API, or webhook issues with unified log search and focused Kapso context. Requires a Kapso account and access to the connected project. Available operations depend on the connected project and WhatsApp permissions.",
+    "shortDescription": "Connect and manage WhatsApp",
+    "longDescription": "Connect or create a Kapso account through OAuth, approve a project, and use the inbox to read conversations and review replies. Connect WhatsApp numbers through the existing signup UI, and build or debug automations, templates, flows, Findings, and logs with Kapso tools. Operations depend on project permissions, plan eligibility, and the connected server. Meta authorization opens externally.",
     "developerName": "Kapso",
     "category": "Developer Tools",
     "capabilities": [
@@ -31,8 +31,8 @@
       "Write"
     ],
     "defaultPrompt": [
-      "Set up WhatsApp onboarding",
-      "Investigate project Findings and logs",
+      "Help me connect a coexistence WhatsApp number",
+      "Show my unread WhatsApp conversations",
       "Build a WhatsApp support agent"
     ],
     "websiteURL": "https://kapso.com",
@@ -79,6 +79,18 @@
               "prompt": "List the WhatsApp templates available for the review number and explain their approval statuses.",
               "tools_triggered": "whatsapp_templates",
               "expected_behavior": "List templates for the resolved review number; report actual names and approval statuses without creating or sending templates."
+            },
+            {
+              "description": "Open the requested WhatsApp connection path",
+              "prompt": "Help me connect an existing WhatsApp Business App number using coexistence.",
+              "tools_triggered": "status, kapso_setup_open",
+              "expected_behavior": "After OAuth project approval, preserve method coexistence and open the existing signup UI directly. Use the sole customer automatically; allow a choice if multiple customers exist. Show billing blockers accurately. Do not complete Meta authorization or connect a real number without the user operating the signup UI."
+            },
+            {
+              "description": "Read conversations and review a reply",
+              "prompt": "Show the unread conversations in my review project and help me reply to the synthetic review contact.",
+              "tools_triggered": "kapso_inbox_show_conversations, kapso_inbox_open",
+              "expected_behavior": "Use actual project-scoped conversation IDs from read tools to display cards and open the conversation inbox. The user reviews or edits the reply in the composer and sends from the UI. Do not invoke app-only send tools or claim a draft was sent."
             }
           ],
           "negative": [
@@ -100,7 +112,7 @@
         "commerce_description": "The plugin does not sell products or process payments."
       },
       "publication": {
-        "release_notes": "Version 0.1.2 improves WhatsApp connection callback handling, HTTPS request safeguards, and credential redaction. It also clarifies WhatsApp Flow authorization guidance and updates the WhatsApp integration skill."
+        "release_notes": "Version 0.1.3 adds OAuth-first account connection instructions, direct WhatsApp connection-path guidance, conversation cards and reviewed inbox reply guidance, and clearer installation instructions. Existing hardened integration scripts are retained."
       }
     }
   }

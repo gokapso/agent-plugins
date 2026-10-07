@@ -50,6 +50,13 @@ kapso login
 ```
 
 Installing through the Codex UI requests account connection. No API key is needed.
+Start with **Open Kapso** after approving project access. The plugin checks the
+connected project and opens the inbox when a production WhatsApp number exists,
+or the setup UI when the first number still needs connecting. An explicit request
+to connect another number opens setup even when a number already exists. Other
+requests, such as unread conversations or building an agent, keep their own flow.
+The UI tools must be advertised by the connected server; otherwise the plugin
+explains the limitation and uses supported read-only tools.
 For CLI-installed plugins that still need authentication:
 
 ```bash

@@ -25,9 +25,14 @@ For a general entry request such as "Open Kapso", "Get started", or "Abrir Kapso
 Explicit requests take precedence over this default. If the user asks to connect a
 number, including "another number", pass `intent: "connect_whatsapp"` to `status`
 when its schema supports it, even if they have not named a connection method. Pass
-their specified `method` and original `goal` as well. When an older server lacks
-`intent`, authorized users can open the advertised `kapso_setup_open` directly for
-that explicit request. Do not route them back to the inbox merely because a number exists.
+their specified `method` and original `goal` as well. On older servers without
+`intent` support, opening `kapso_setup_open` without a method can show the existing
+connected-number screen instead of connection choices. When adding another number
+there, ask the authorized user for a supported connection method unless they already
+specified one, then open the advertised setup tool with that `method`. If its schema
+does not support selecting a method, explain that this setup experience requires an
+updated server. Do not invent an intent argument or claim the choices were opened.
+Do not route them back to the inbox merely because a number exists.
 Preserve other explicit tasks, such as unread conversation search, logs, or automation
 development, rather than replacing them with a generic entry screen.
 

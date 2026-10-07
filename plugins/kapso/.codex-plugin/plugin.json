@@ -69,6 +69,12 @@
               "expected_behavior": "For an authorized review project with an existing number, pass intent connect_whatsapp when advertised by status. Open the returned setup UI, retaining the connection-method chooser because the user has not specified a path. Do not route to the inbox just because another number exists. Respect owner/admin restrictions."
             },
             {
+              "description": "Connect another number on an older server",
+              "prompt": "Connect another WhatsApp number",
+              "tools_triggered": "status, kapso_setup_open after method selection",
+              "expected_behavior": "For an authorized review project with an existing number and tool schemas without intent support, do not open kapso_setup_open without a method or route to the inbox. Ask for a supported method unless the user already specified one, then pass that method to the advertised setup tool. If method selection is unsupported, explain the server limitation. Never invent unsupported arguments or claim the connection choices were opened."
+            },
+            {
               "description": "Resume entry after account connection",
               "prompt": "Open Kapso",
               "tools_triggered": "status after OAuth connection",

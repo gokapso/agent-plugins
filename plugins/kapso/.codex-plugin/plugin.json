@@ -31,7 +31,7 @@
       "Write"
     ],
     "defaultPrompt": [
-      "Help me connect a coexistence WhatsApp number",
+      "Open Kapso",
       "Show my unread WhatsApp conversations",
       "Build a WhatsApp support agent"
     ],
@@ -50,6 +50,30 @@
       "review": {
         "test_cases": {
           "positive": [
+            {
+              "description": "Open Kapso with a connected number",
+              "prompt": "Open Kapso",
+              "tools_triggered": "status, kapso_inbox_open",
+              "expected_behavior": "For an authenticated review project with a production WhatsApp number, call status and then its returned read-only inbox tool in the same turn. Open the inbox without asking whether to connect a number. Do not send messages."
+            },
+            {
+              "description": "Open Kapso before the first number is connected",
+              "prompt": "Open Kapso",
+              "tools_triggered": "status, kapso_setup_open",
+              "expected_behavior": "For an authenticated owner/admin review project without a production WhatsApp number, call status and open the returned setup UI in the same turn. Do not require a CLI login or API key, create legacy setup links, provision a number, or complete Meta authorization from the assistant."
+            },
+            {
+              "description": "Connect another number without specifying a method",
+              "prompt": "Connect another WhatsApp number",
+              "tools_triggered": "status, kapso_setup_open",
+              "expected_behavior": "For an authorized review project with an existing number, pass intent connect_whatsapp when advertised by status. Open the returned setup UI, retaining the connection-method chooser because the user has not specified a path. Do not route to the inbox just because another number exists. Respect owner/admin restrictions."
+            },
+            {
+              "description": "Resume entry after account connection",
+              "prompt": "Open Kapso",
+              "tools_triggered": "status after OAuth connection",
+              "expected_behavior": "When unauthenticated, direct the user to the host Connect account flow to sign in or create an account and approve project access. After connection, continue the original request, call status, and open the returned read-only inbox or setup UI. Never request an API key or fall back to local CLI login."
+            },
             {
               "description": "Confirm connected project",
               "prompt": "Which Kapso project am I connected to?",

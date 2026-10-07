@@ -1,6 +1,6 @@
 ---
 name: integrate-whatsapp
-description: "Connect WhatsApp to your product with Kapso: onboard customers with setup links, detect connections, receive events via webhooks, and send messages/templates/media. Also manage WhatsApp Flows (create/update/publish, data endpoints, encryption). Use when integrating WhatsApp end-to-end."
+description: "Open Kapso or get started based on the connected account: open the inbox when a number exists, or WhatsApp setup when none exists. Read conversations and review replies. Connect WhatsApp to products, onboard customers, configure webhooks, send messages/templates/media, and manage WhatsApp Flows. Use for opening Kapso, inbox work, or WhatsApp integration."
 ---
 
 # Integrate WhatsApp
@@ -13,6 +13,28 @@ access uses OAuth; do not ask the user for an API key or fall back to CLI login 
 the plugin is installed but unauthenticated. If tools are unavailable, direct the
 user to the host's account connection controls without claiming a tool call succeeded.
 After authentication, continue the original request using the available MCP schemas.
+
+For a general entry request such as "Open Kapso", "Get started", or "Abrir Kapso":
+
+1. Discover and call `status` for the connected project.
+2. Follow the returned read-only UI action in the same turn: `kapso_inbox_open` when
+   a number exists, or `kapso_setup_open` when setup is needed. Actually open the UI;
+   do not just explain the recommendation or ask the user to choose inbox versus setup.
+3. Briefly describe the opened screen in the user's language using the returned state.
+
+Explicit requests take precedence over this default. If the user asks to connect a
+number, including "another number", pass `intent: "connect_whatsapp"` to `status`
+when its schema supports it, even if they have not named a connection method. Pass
+their specified `method` and original `goal` as well. When an older server lacks
+`intent`, authorized users can open the advertised `kapso_setup_open` directly for
+that explicit request. Do not route them back to the inbox merely because a number exists.
+Preserve other explicit tasks, such as unread conversation search, logs, or automation
+development, rather than replacing them with a generic entry screen.
+
+Respect `project_access.can_connect_whatsapp`; never bypass owner/admin restrictions.
+If UI tools are unavailable, explain that limitation and use advertised read-only
+tools when relevant. A generic entry request does not authorize legacy customer or
+setup-link creation, provisioning, or sending messages.
 
 When the installed plugin exposes Kapso MCP tools, use those for supported remote operations without requiring a local CLI. Discover the available tool schema and use grouped tools with `action: "help"` when needed. Use the CLI for local source-controlled workflow development, or the bundled scripts when MCP/CLI cannot perform the operation. Run scripts from this skill directory so relative paths resolve.
 
@@ -47,7 +69,8 @@ npm i
 ### Connect and use the inbox through MCP
 
 When the connection advertises `status`, call it with the user's requested `method`
-and `goal` and follow its returned next action. Respect
+and `goal`, plus `intent: "connect_whatsapp"` for an explicit number-connection
+request when supported, and follow its returned read-only UI action. Respect
 `project_access.can_connect_whatsapp`: when false, explain that connecting numbers
 requires a project owner or admin, and use the returned accessible inbox/read action
 when relevant to the request. Do not call setup tools or switch accounts to bypass

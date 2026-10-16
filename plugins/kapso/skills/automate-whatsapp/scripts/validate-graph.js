@@ -80,7 +80,7 @@ function validateDefinition(definition) {
   }
 
   if (!nodes || !edges) {
-    return { errors, warnings, stats: { nodes: 0, edges: 0, decideNodes: 0 } };
+    return { errors, warnings, stats: { nodes: 0, edges: 0, decideNodes: 0, agentNodes: 0 } };
   }
 
   const nodeIds = new Set();
@@ -154,11 +154,29 @@ function validateDefinition(definition) {
   });
 
   let decideNodes = 0;
+  let agentNodes = 0;
   nodes.forEach((node) => {
     if (!node || typeof node !== 'object') return;
     const nodeId = node.id;
     const nodeType = nodeTypes[nodeId];
     const outgoing = outgoingEdges[nodeId] || [];
+
+    if (nodeType === 'agent') {
+      agentNodes += 1;
+      const config = (node.data || {}).config || {};
+
+      const providerModelId = config.provider_model_id;
+      if (typeof providerModelId !== 'string' || providerModelId.trim() === '') {
+        errors.push(
+          `agent node ${nodeId} is missing config.provider_model_id (required). Use scripts/list-provider-models.js to find a model id.`
+        );
+      }
+
+      const systemPrompt = config.system_prompt;
+      if (typeof systemPrompt !== 'string' || systemPrompt.trim() === '') {
+        warnings.push(`agent node ${nodeId} has an empty config.system_prompt`);
+      }
+    }
 
     if (nodeType === 'decide') {
       decideNodes += 1;
@@ -207,7 +225,8 @@ function validateDefinition(definition) {
     stats: {
       nodes: nodes.length,
       edges: edges.length,
-      decideNodes
+      decideNodes,
+      agentNodes
     }
   };
 }

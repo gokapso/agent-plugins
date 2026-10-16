@@ -63,6 +63,30 @@ Component types:
 - FOOTER (optional)
 - BUTTONS (optional)
 
+## Template naming rules
+
+- `name` must be **lowercase letters, numbers, and underscores only** (`^[a-z0-9_]+$`). No spaces, uppercase, hyphens, or other punctuation — these surface as an invalid-character error.
+- Max length 512 characters.
+- **Names are unique per WhatsApp Business Account (WABA).** Reusing a name that already exists in the same WABA fails with **"template name already exists"**, even if that template is rejected or in another language. This is the most common create-form dead-end.
+- Recovery when a name collides — pick one:
+  1. **Choose a different, unique name** (e.g. append a version or date suffix: `order_ready_v2`).
+  2. **Update the existing template instead of creating a new one** — `POST /{business_account_id}/message_templates?hsm_id=<template_id>` (or `node scripts/update-template.mjs`). Find the existing template's id with `node scripts/list-templates.mjs --business-account-id <WABA_ID>`.
+  3. **Delete the old template first** — `DELETE /{business_account_id}/message_templates?name=<template_name>` — then recreate. Note Meta blocks reusing a deleted name for ~30 days.
+- The same name **can** be reused across *different* WABAs, which is why switching WhatsApp accounts clears the collision. Switching accounts is a workaround, not a fix — prefer a unique name or an update.
+
+## Pre-submit validation checklist
+
+Check all of these **before** submitting a create/update — Meta (and the create form) reject on submit, not inline, so catching them up front avoids a round-trip:
+
+- [ ] **Name** is lowercase/numbers/underscores only, ≤512 chars, and **not already used in this WABA** (see naming rules above).
+- [ ] **Every button has non-empty `text`.** Empty quick-reply (or URL/phone) button text is rejected. Button text ≤25 chars. If a button is unused, remove it rather than leaving it blank.
+- [ ] **Buttons are not interleaved** — group all QUICK_REPLY together, then URL/PHONE_NUMBER (see button ordering rules below). Max 10 buttons.
+- [ ] **Every variable in HEADER/BODY has an example value** (see example requirements). Missing examples fail with **"Please provide example values for all parameters."** Named params: each `{{param_name}}` needs a matching entry in `header_text_named_params` / `body_text_named_params`. Positional: `example.header_text` / 2D `example.body_text` must cover every `{{n}}`.
+- [ ] **URL buttons with a `{{1}}` variable** include an `example` array.
+- [ ] **Positional placeholders have no gaps** — `{{1}}`, `{{2}}`, ... with nothing skipped.
+- [ ] **`language` is set** (e.g. `en_US`) — use `language`, not `language_code`.
+- [ ] **Body text** is within limits (≤1024 chars) and avoids leading/trailing whitespace, more than 4 consecutive spaces, or newlines/tabs where Meta disallows them.
+
 ## Parameter format (creation time)
 
 Set `parameter_format`:
@@ -272,3 +296,15 @@ Rules:
 
 - Use either `id` or `link` (never both).
 - Always include the header component when the template has a media header.
+
+## Common creation errors and recovery
+
+| Error on submit | Cause | Fix |
+|-----------------|-------|-----|
+| `template name already exists` | Name already used in this WABA (per-WABA uniqueness) | Use a unique name, update the existing template via `hsm_id`, or delete the old one first (see naming rules). Switching WhatsApp accounts also clears it but is only a workaround. |
+| `Please provide example values for all parameters` | A `{{variable}}` in HEADER/BODY (or a URL button) has no example | Add the matching `example` entry for every parameter (see example requirements + checklist). |
+| Invalid-character / invalid-name error | Name has uppercase, spaces, hyphens, or punctuation | Rename to lowercase letters, numbers, and underscores only. |
+| Empty / missing button text | A quick-reply, URL, or phone button has blank `text` | Give every button non-empty text (≤25 chars) or remove the unused button. |
+| Button ordering / interleave error | QUICK_REPLY interleaved with URL/PHONE_NUMBER | Group all QUICK_REPLY first, then URL/PHONE_NUMBER. |
+
+Run through the **Pre-submit validation checklist** above before any create/update to avoid these.

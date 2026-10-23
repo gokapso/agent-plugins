@@ -1,0 +1,45 @@
+{
+  "data": {
+    "context": null,
+    "from": null,
+    "from_parent_user_id": null,
+    "from_user_id": null,
+    "id": "wamid.KAPSO_REVIEW_FAILED",
+    "kapso": {
+      "direction": "outbound",
+      "status": "failed",
+      "processing_status": "processed",
+      "origin": "cloud_api",
+      "phone_number": "+12025550188",
+      "phone_number_id": "pn_example_001",
+      "has_media": false,
+      "whatsapp_conversation_id": "conv_example_002",
+      "contact_name": "Sample Patient",
+      "content": "Reminder: your appointment is tomorrow at 10am. Reply C to confirm.",
+      "statuses": [
+        {
+          "id": "wamid.KAPSO_REVIEW_FAILED",
+          "status": "failed",
+          "timestamp": "1792504932",
+          "recipient_id": "12025550188",
+          "errors": [
+            {
+              "code": 131047,
+              "title": "Re-engagement message",
+              "message": "Re-engagement message",
+              "error_data": {
+                "details": "Message failed to send because more than 24 hours have passed since the customer last replied to this number."
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "text": {
+      "body": "Reminder: your appointment is tomorrow at 10am. Reply C to confirm."
+    },
+    "timestamp": "1792504931",
+    "type": "text",
+    "username": null
+  }
+}

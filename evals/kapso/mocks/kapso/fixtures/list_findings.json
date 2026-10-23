@@ -1,0 +1,56 @@
+{
+  "data": {
+    "findings": [
+      {
+        "id": "fnd_example_001",
+        "signal_name": "reschedule_request_unresolved",
+        "direction": "rising",
+        "status": "open",
+        "affected_count": 41,
+        "affected_unit": "conversations",
+        "last_observed_at": "2026-10-21T18:44:00Z",
+        "related_findings_count": 0,
+        "investigation": null,
+        "verification": null
+      },
+      {
+        "id": "fnd_example_002",
+        "signal_name": "pricing_question_unanswered",
+        "direction": "recurring",
+        "status": "open",
+        "affected_count": 6,
+        "affected_unit": "conversations",
+        "last_observed_at": "2026-10-20T11:03:00Z",
+        "related_findings_count": 0,
+        "investigation": null,
+        "verification": null
+      },
+      {
+        "id": "fnd_example_003",
+        "signal_name": "insurance_question_escalated",
+        "direction": "falling",
+        "status": "candidate",
+        "affected_count": 3,
+        "affected_unit": "conversations",
+        "last_observed_at": "2026-10-18T15:20:00Z",
+        "related_findings_count": 0,
+        "investigation": null,
+        "verification": null
+      }
+    ]
+  },
+  "meta": {
+    "returned_count": 3,
+    "truncated": false,
+    "findings_url": "/projects/prj_example_001/findings"
+  },
+  "next": [],
+  "paging": {
+    "cursors": {
+      "before": null,
+      "after": null
+    },
+    "next": null,
+    "previous": null
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "data": [
+    {
+      "id": "conv_example_003",
+      "business_scoped_user_id": "bsu_example_003",
+      "contact_name": "Pat Example",
+      "created_at": "2026-10-22T08:10:00Z",
+      "kapso": {
+        "contact_name": "Pat Example",
+        "messages_count": 2,
+        "last_message_id": "wamid.EXAMPLE_PE_2",
+        "last_message_type": "text",
+        "last_message_timestamp": "2026-10-22T08:12:00Z",
+        "last_message_text": "And is it covered by insurance?",
+        "last_inbound_at": "2026-10-22T08:12:00Z"
+      },
+      "last_active_at": "2026-10-22T08:12:00Z",
+      "metadata": {},
+      "parent_business_scoped_user_id": null,
+      "phone_number": "+12025550174",
+      "phone_number_id": "pn_example_001",
+      "status": "active",
+      "updated_at": "2026-10-22T08:12:00Z",
+      "username": null,
+      "whatsapp_config_id": "wc_example_001"
+    },
+    {
+      "id": "conv_example_001",
+      "business_scoped_user_id": "bsu_example_001",
+      "contact_name": "Review Contact",
+      "created_at": "2026-10-21T15:58:00Z",
+      "kapso": {
+        "contact_name": "Review Contact",
+        "messages_count": 3,
+        "last_message_id": "wamid.EXAMPLE_RC_3",
+        "last_message_type": "text",
+        "last_message_timestamp": "2026-10-21T16:40:00Z",
+        "last_message_text": "Great. Do you also have Saturday appointments for my son?",
+        "last_inbound_at": "2026-10-21T16:40:00Z",
+        "last_outbound_at": "2026-10-21T16:05:00Z"
+      },
+      "last_active_at": "2026-10-21T16:40:00Z",
+      "metadata": {},
+      "parent_business_scoped_user_id": null,
+      "phone_number": "+12025550161",
+      "phone_number_id": "pn_example_001",
+      "status": "active",
+      "updated_at": "2026-10-21T16:40:00Z",
+      "username": null,
+      "whatsapp_config_id": "wc_example_001"
+    },
+    {
+      "id": "conv_example_002",
+      "business_scoped_user_id": "bsu_example_002",
+      "contact_name": "Sample Patient",
+      "created_at": "2026-10-19T09:12:00Z",
+      "kapso": {
+        "contact_name": "Sample Patient",
+        "messages_count": 2,
+        "last_message_id": "wamid.KAPSO_REVIEW_FAILED",
+        "last_message_type": "text",
+        "last_message_timestamp": "2026-10-20T14:02:11Z",
+        "last_message_text": "Reminder: your appointment is tomorrow at 10am. Reply C to confirm.",
+        "last_inbound_at": "2026-10-19T09:12:00Z",
+        "last_outbound_at": "2026-10-20T14:02:11Z"
+      },
+      "last_active_at": "2026-10-20T14:02:11Z",
+      "metadata": {},
+      "parent_business_scoped_user_id": null,
+      "phone_number": "+12025550188",
+      "phone_number_id": "pn_example_001",
+      "status": "active",
+      "updated_at": "2026-10-20T14:02:11Z",
+      "username": null,
+      "whatsapp_config_id": "wc_example_001"
+    }
+  ],
+  "meta": {
+    "page": 1,
+    "per_page": 20,
+    "total_pages": 1,
+    "total_count": 3,
+    "truncated": false,
+    "total_count_estimated": false
+  }
+}

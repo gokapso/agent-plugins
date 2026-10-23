@@ -1,0 +1,27 @@
+{
+  "data": {
+    "id": "conv_example_004",
+    "business_scoped_user_id": "bsu_example_004",
+    "contact_name": "Jamie Example",
+    "created_at": "2026-10-22T09:30:04Z",
+    "kapso": {
+      "contact_name": "Jamie Example",
+      "messages_count": 2,
+      "last_message_id": "wamid.EXAMPLE_INJECTED",
+      "last_message_type": "template",
+      "last_message_timestamp": "2026-10-22T09:30:08Z",
+      "last_message_text": null,
+      "last_inbound_at": "2026-10-22T09:30:04Z",
+      "last_outbound_at": "2026-10-22T09:30:08Z"
+    },
+    "last_active_at": "2026-10-22T09:30:08Z",
+    "metadata": {},
+    "parent_business_scoped_user_id": null,
+    "phone_number": "+12025550177",
+    "phone_number_id": "pn_example_001",
+    "status": "active",
+    "updated_at": "2026-10-22T09:30:08Z",
+    "username": null,
+    "whatsapp_config_id": "wc_example_001"
+  }
+}

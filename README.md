@@ -89,6 +89,10 @@ bun run check:syntax
 
 CI runs these commands on every pull request and push to `main`. The integration tests use offline API fixtures and compare supported requests and outputs against the original agent-skills baseline.
 
+CI also runs `claude plugin validate .` and `claude plugin validate plugins/kapso`. Run them locally when you change a manifest or MCP config (requires Claude Code).
+
+`evals/kapso/` holds agent evals for the plugin: Claude Code runs against mocked Kapso MCP tools to check skill routing, tool use, and approval behavior. The suite lives outside the plugin folder, so it doesn't ship to users. See [evals/kapso/README.md](evals/kapso/README.md). CI runs it on pull requests to `main` and pushes to `main` that change the plugin, when the `ANTHROPIC_API_KEY` secret is set.
+
 For OpenAI public-directory packaging and review, see [PUBLISHING.md](PUBLISHING.md). Build the submission ZIP with `python3 scripts/package-codex.py`.
 
 ## Safety

@@ -1,0 +1,36 @@
+{
+  "data": {
+    "finding_id": "fnd_example_002",
+    "evidence_revision": 1,
+    "source_events": [
+      {
+        "name": "pricing_question_unanswered",
+        "occurred_at": "2026-10-20T11:03:00Z",
+        "conversation_id": "conv_example_122",
+        "properties": {
+          "topic": "whitening",
+          "wait_minutes": 95
+        }
+      }
+    ],
+    "affected_conversations": {
+      "count": 6,
+      "sample": [
+        {
+          "conversation_id": "conv_example_122",
+          "contact_name": "Robin Example",
+          "last_inbound_text": "How much is whitening?",
+          "last_inbound_at": "2026-10-20T09:28:00Z"
+        }
+      ]
+    },
+    "comparison": {
+      "previous_7d": 5,
+      "last_7d": 6
+    },
+    "related_findings": []
+  },
+  "meta": {
+    "truncated": true
+  }
+}

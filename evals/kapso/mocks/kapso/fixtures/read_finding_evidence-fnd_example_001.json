@@ -1,0 +1,55 @@
+{
+  "data": {
+    "finding_id": "fnd_example_001",
+    "evidence_revision": 3,
+    "source_events": [
+      {
+        "name": "reschedule_request_unresolved",
+        "occurred_at": "2026-10-21T18:44:00Z",
+        "conversation_id": "conv_example_141",
+        "properties": {
+          "requested_day": "friday",
+          "workflow": "Reschedule appointment",
+          "failed_step": "find_open_slot",
+          "error": "Function find_open_slot timed out after 10000 ms"
+        }
+      },
+      {
+        "name": "reschedule_request_unresolved",
+        "occurred_at": "2026-10-21T10:02:00Z",
+        "conversation_id": "conv_example_137",
+        "properties": {
+          "requested_day": "monday",
+          "workflow": "Reschedule appointment",
+          "failed_step": "find_open_slot",
+          "error": "Function find_open_slot timed out after 10000 ms"
+        }
+      }
+    ],
+    "affected_conversations": {
+      "count": 41,
+      "sample": [
+        {
+          "conversation_id": "conv_example_141",
+          "contact_name": "Alex Example",
+          "last_inbound_text": "Can I move my appointment to Friday?",
+          "last_inbound_at": "2026-10-21T18:43:41Z"
+        },
+        {
+          "conversation_id": "conv_example_137",
+          "contact_name": "Sam Example",
+          "last_inbound_text": "Hello? I asked to reschedule yesterday.",
+          "last_inbound_at": "2026-10-21T10:01:30Z"
+        }
+      ]
+    },
+    "comparison": {
+      "previous_7d": 12,
+      "last_7d": 41
+    },
+    "related_findings": []
+  },
+  "meta": {
+    "truncated": true
+  }
+}

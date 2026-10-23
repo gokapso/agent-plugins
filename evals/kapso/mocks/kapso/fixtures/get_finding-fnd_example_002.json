@@ -1,0 +1,19 @@
+{
+  "data": {
+    "finding": {
+      "id": "fnd_example_002",
+      "signal_name": "pricing_question_unanswered",
+      "direction": "recurring",
+      "status": "open",
+      "affected_count": 6,
+      "affected_unit": "conversations",
+      "last_observed_at": "2026-10-20T11:03:00Z",
+      "related_findings_count": 0,
+      "investigation": null,
+      "verification": null,
+      "evidence_revision": 1,
+      "related_findings": []
+    }
+  },
+  "next": []
+}

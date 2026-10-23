@@ -1,0 +1,27 @@
+{
+  "data": {
+    "context": null,
+    "from": "12025550174",
+    "from_parent_user_id": null,
+    "from_user_id": "bsu_example_003",
+    "id": "wamid.EXAMPLE_PE_1",
+    "kapso": {
+      "direction": "inbound",
+      "status": "delivered",
+      "processing_status": "processed",
+      "origin": "cloud_api",
+      "phone_number": "+12025550174",
+      "phone_number_id": "pn_example_001",
+      "has_media": false,
+      "whatsapp_conversation_id": "conv_example_003",
+      "contact_name": "Pat Example",
+      "content": "Hello, how much is a teeth whitening session?"
+    },
+    "text": {
+      "body": "Hello, how much is a teeth whitening session?"
+    },
+    "timestamp": "1792656600",
+    "type": "text",
+    "username": null
+  }
+}

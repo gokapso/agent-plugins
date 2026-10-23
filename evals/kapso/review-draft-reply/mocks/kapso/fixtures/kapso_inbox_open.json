@@ -1,0 +1,13 @@
+{
+  "project": {
+    "id": "prj_example_001",
+    "name": "Example Dental (test)"
+  },
+  "selected_conversation_id": "conv_example_001",
+  "proposed_draft": {
+    "id": "draft_example_001",
+    "project_id": "prj_example_001",
+    "conversation_id": "conv_example_001",
+    "text": "Thanks for your message. Our demo support hours are Monday–Friday, 9am–5pm."
+  }
+}

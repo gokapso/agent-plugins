@@ -1,0 +1,226 @@
+{
+  "available": true,
+  "query": null,
+  "source": "all",
+  "problems_only": true,
+  "filters": {},
+  "period": "7d",
+  "window": {
+    "since": "2026-10-15T16:00:00Z",
+    "until": "2026-10-22T16:00:00Z"
+  },
+  "events": [
+    {
+      "id": "log_example_012",
+      "source": "function_invocation_event",
+      "project_id": "prj_example_001",
+      "timestamp": "2026-10-21T18:44:02Z",
+      "occurred_at": "2026-10-21T18:44:02Z",
+      "ingested_at": "2026-10-21T18:44:02Z",
+      "cursor": [
+        1792608242000,
+        "log_example_012"
+      ],
+      "rank": null,
+      "level": "error",
+      "status": "failed",
+      "message": "Function find_open_slot timed out after 10000 ms",
+      "flow_name": "Reschedule appointment",
+      "flow_id": "flow_example_001",
+      "flow_execution_id": "exec_example_141",
+      "step_identifier": "find_open_slot",
+      "step_type": "function",
+      "error_class": "TimeoutError",
+      "error_message": "Function find_open_slot timed out after 10000 ms",
+      "attributes": {
+        "function_name": "find_open_slot",
+        "duration_ms": 10000
+      },
+      "search_text": "find_open_slot timeout Reschedule appointment"
+    },
+    {
+      "id": "log_example_011",
+      "source": "function_invocation_event",
+      "project_id": "prj_example_001",
+      "timestamp": "2026-10-21T10:02:03Z",
+      "occurred_at": "2026-10-21T10:02:03Z",
+      "ingested_at": "2026-10-21T10:02:03Z",
+      "cursor": [
+        1792576923000,
+        "log_example_011"
+      ],
+      "rank": null,
+      "level": "error",
+      "status": "failed",
+      "message": "Function find_open_slot timed out after 10000 ms",
+      "flow_name": "Reschedule appointment",
+      "flow_id": "flow_example_001",
+      "flow_execution_id": "exec_example_137",
+      "step_identifier": "find_open_slot",
+      "step_type": "function",
+      "error_class": "TimeoutError",
+      "error_message": "Function find_open_slot timed out after 10000 ms",
+      "attributes": {
+        "function_name": "find_open_slot",
+        "duration_ms": 10000
+      },
+      "search_text": "find_open_slot timeout Reschedule appointment"
+    },
+    {
+      "id": "log_example_004",
+      "source": "webhook_delivery",
+      "project_id": "prj_example_001",
+      "timestamp": "2026-10-20T14:03:13Z",
+      "occurred_at": "2026-10-20T14:03:13Z",
+      "ingested_at": "2026-10-20T14:03:13Z",
+      "cursor": [
+        1792504993000,
+        "log_example_004"
+      ],
+      "rank": null,
+      "level": "error",
+      "status": "failed",
+      "event": "whatsapp.message.failed",
+      "webhook_id": "wh_example_001",
+      "webhook_url": "https://app.example.com/hooks/kapso",
+      "response_status": 500,
+      "response_time_ms": 812,
+      "message": "Webhook delivery attempt 2 failed with HTTP 500",
+      "attributes": {
+        "delivery_id": "whd_example_001",
+        "attempt": 2,
+        "whatsapp_message_id": "wamid.KAPSO_REVIEW_FAILED"
+      },
+      "search_text": "wamid.KAPSO_REVIEW_FAILED whatsapp.message.failed delivery attempt 2 HTTP 500"
+    },
+    {
+      "id": "log_example_003",
+      "source": "webhook_delivery",
+      "project_id": "prj_example_001",
+      "timestamp": "2026-10-20T14:02:13Z",
+      "occurred_at": "2026-10-20T14:02:13Z",
+      "ingested_at": "2026-10-20T14:02:13Z",
+      "cursor": [
+        1792504933000,
+        "log_example_003"
+      ],
+      "rank": null,
+      "level": "error",
+      "status": "failed",
+      "event": "whatsapp.message.failed",
+      "webhook_id": "wh_example_001",
+      "webhook_url": "https://app.example.com/hooks/kapso",
+      "response_status": 500,
+      "response_time_ms": 812,
+      "message": "Webhook delivery attempt 1 failed with HTTP 500",
+      "attributes": {
+        "delivery_id": "whd_example_001",
+        "attempt": 1,
+        "whatsapp_message_id": "wamid.KAPSO_REVIEW_FAILED"
+      },
+      "search_text": "wamid.KAPSO_REVIEW_FAILED whatsapp.message.failed delivery attempt 1 HTTP 500"
+    },
+    {
+      "id": "log_example_002",
+      "source": "whatsapp_webhook_event",
+      "project_id": "prj_example_001",
+      "timestamp": "2026-10-20T14:02:12Z",
+      "occurred_at": "2026-10-20T14:02:12Z",
+      "ingested_at": "2026-10-20T14:02:12Z",
+      "cursor": [
+        1792504932000,
+        "log_example_002"
+      ],
+      "rank": null,
+      "level": "error",
+      "status": "failed",
+      "event_type": "message_status",
+      "field": "messages",
+      "message": "Meta status webhook: wamid.KAPSO_REVIEW_FAILED failed",
+      "phone_number_id": "pn_example_001",
+      "display_phone_number": "+1 202-555-0143",
+      "payload": {
+        "object": "whatsapp_business_account",
+        "entry": [
+          {
+            "id": "waba_example_001",
+            "changes": [
+              {
+                "field": "messages",
+                "value": {
+                  "messaging_product": "whatsapp",
+                  "metadata": {
+                    "display_phone_number": "12025550143",
+                    "phone_number_id": "pn_example_001"
+                  },
+                  "statuses": [
+                    {
+                      "id": "wamid.KAPSO_REVIEW_FAILED",
+                      "status": "failed",
+                      "timestamp": "1792504932",
+                      "recipient_id": "12025550188",
+                      "errors": [
+                        {
+                          "code": 131047,
+                          "title": "Re-engagement message",
+                          "message": "Re-engagement message",
+                          "error_data": {
+                            "details": "Message failed to send because more than 24 hours have passed since the customer last replied to this number."
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "search_text": "wamid.KAPSO_REVIEW_FAILED status failed 131047"
+    },
+    {
+      "id": "log_example_001",
+      "project_id": "prj_example_001",
+      "timestamp": "2026-10-20T14:02:11Z",
+      "occurred_at": "2026-10-20T14:02:11Z",
+      "ingested_at": "2026-10-20T14:02:11Z",
+      "cursor": [
+        1792504931000,
+        "log_example_001"
+      ],
+      "rank": null,
+      "resource_type": "whatsapp_message",
+      "resource_id": "wamid.KAPSO_REVIEW_FAILED",
+      "source": "whatsapp_message_event",
+      "attributes": {
+        "content": "Reminder: your appointment is tomorrow at 10am. Reply C to confirm.",
+        "phone_number": "+12025550188",
+        "business_scoped_user_id": "bsu_example_002"
+      },
+      "whatsapp_message_id": "wamid.KAPSO_REVIEW_FAILED",
+      "whatsapp_conversation_id": "conv_example_002",
+      "whatsapp_config_id": "wc_example_001",
+      "direction": "outbound",
+      "status": "failed",
+      "message_type": "text",
+      "origin": "cloud_api",
+      "processing_status": "processed",
+      "level": "error",
+      "event_action": "updated",
+      "message": "Outbound text message wamid.KAPSO_REVIEW_FAILED to +12025550188 failed",
+      "error_class": "WhatsAppError",
+      "error_message": "(#131047) Re-engagement message",
+      "search_text": "wamid.KAPSO_REVIEW_FAILED outbound text failed 131047 Re-engagement message +12025550188"
+    }
+  ],
+  "pagination": {
+    "has_more": false,
+    "next_cursor": null
+  },
+  "meta": {
+    "result_count": 6,
+    "applied_filters": {},
+    "ignored_filters": []
+  }
+}

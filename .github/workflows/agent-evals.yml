@@ -1,0 +1,195 @@
+name: Agent evals
+
+# Runs when something Claude Code loads from the plugin changes, or the eval suite does. The
+# exclusions are files Claude Code never loads: other hosts' manifests and MCP config, the
+# Cursor rule, docs, and assets and scripts that no skill references.
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "plugins/kapso/**"
+      - "!plugins/kapso/*.md"
+      - "!plugins/kapso/LICENSE"
+      - "!plugins/kapso/mcp.json"
+      - "!plugins/kapso/.codex-plugin/**"
+      - "!plugins/kapso/.cursor-plugin/**"
+      - "!plugins/kapso/rules/**"
+      - "!plugins/kapso/assets/**"
+      - "!plugins/kapso/scripts/**"
+      - "evals/kapso/**"
+      - "!evals/kapso/README.md"
+      - ".github/workflows/agent-evals.yml"
+      - "scripts/run-agent-evals.mjs"
+      - "scripts/summarize-agent-evals.mjs"
+  push:
+    branches: [main]
+    paths:
+      - "plugins/kapso/**"
+      - "!plugins/kapso/*.md"
+      - "!plugins/kapso/LICENSE"
+      - "!plugins/kapso/mcp.json"
+      - "!plugins/kapso/.codex-plugin/**"
+      - "!plugins/kapso/.cursor-plugin/**"
+      - "!plugins/kapso/rules/**"
+      - "!plugins/kapso/assets/**"
+      - "!plugins/kapso/scripts/**"
+      - "evals/kapso/**"
+      - "!evals/kapso/README.md"
+      - ".github/workflows/agent-evals.yml"
+      - "scripts/run-agent-evals.mjs"
+      - "scripts/summarize-agent-evals.mjs"
+  workflow_dispatch:
+    inputs:
+      runs:
+        description: "Runs per case, 1 to 5"
+        required: false
+        default: "3"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: agent-evals-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  setup:
+    name: Agent evals setup
+    runs-on: ubuntu-latest
+    outputs:
+      run: ${{ steps.check.outputs.run }}
+    steps:
+      # Without the secret the eval jobs show as skipped, not passed. Setting the
+      # AGENT_EVALS_REQUIRED variable to true makes a missing secret fail instead.
+      - name: Decide whether the evals run
+        id: check
+        env:
+          HAS_KEY: ${{ secrets.ANTHROPIC_API_KEY != '' }}
+          FROM_FORK: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name != github.repository }}
+          REQUIRED: ${{ vars.AGENT_EVALS_REQUIRED == 'true' }}
+        run: |
+          if [ "$FROM_FORK" = "true" ]; then
+            reason="Pull requests from forks get no secrets, so the agent evals don't run on them. They run on the push to main after merge."
+            echo "::notice::$reason"
+            echo "$reason" >> "$GITHUB_STEP_SUMMARY"
+            echo "run=false" >> "$GITHUB_OUTPUT"
+          elif [ "$HAS_KEY" = "true" ]; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          elif [ "$REQUIRED" = "true" ]; then
+            echo "::error::AGENT_EVALS_REQUIRED is true, but the ANTHROPIC_API_KEY secret is not set."
+            exit 1
+          else
+            reason="The ANTHROPIC_API_KEY secret is not set, so the agent evals were skipped. See evals/kapso/README.md to enable them."
+            echo "::notice::$reason"
+            echo "$reason" >> "$GITHUB_STEP_SUMMARY"
+            echo "run=false" >> "$GITHUB_OUTPUT"
+          fi
+
+  evals:
+    name: Agent evals
+    needs: setup
+    if: needs.setup.outputs.run == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        model: [claude-sonnet-5-5, claude-haiku-5-5]
+    env:
+      CLAUDE_CODE_VERSION: "2.1.309"
+      EVAL_MODEL: ${{ matrix.model }}
+      JUDGE_MODEL: claude-sonnet-5-5
+      RUNS: ${{ github.event_name == 'workflow_dispatch' && (inputs.runs || '3') || (github.event_name == 'push' && '3' || '1') }}
+      MAX_COST_USD: ${{ github.event_name == 'workflow_dispatch' && '15' || (github.event_name == 'push' && '10' || '4') }}
+      # 0 keeps the job informational. A higher value fails the job when any case scores below it.
+      THRESHOLD: ${{ vars.AGENT_EVALS_THRESHOLD || '0' }}
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      # Claude Code 2.1.309 requires Node 22 or later.
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install Claude Code
+        run: npm install -g "@anthropic-ai/claude-code@${CLAUDE_CODE_VERSION}"
+
+      - name: Run agent evals
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          case "$RUNS" in
+            [1-5]) ;;
+            *) echo "::error::Runs per case must be 1 to 5, got '$RUNS'."; exit 1 ;;
+          esac
+          out="$RUNNER_TEMP/kapso-evals"
+          mkdir -p "$out"
+          set +e
+          node scripts/run-agent-evals.mjs \
+            --ablation none \
+            --scaffold \
+            --keep-temp \
+            --runs "$RUNS" \
+            --model "$EVAL_MODEL" \
+            --judge-model "$JUDGE_MODEL" \
+            --threshold "$THRESHOLD" \
+            --max-cost-usd "$MAX_COST_USD" \
+            --concurrency 4 \
+            --no-publish \
+            --output-dir "$out" \
+            --report "$out/report.html"
+          code=$?
+          set -e
+          result="$out/aggregate-result.json"
+          # Keep each run's transcript (every tool call, its input and result, and the replies) in the artifact.
+          mkdir -p "$out/traces"
+          if [ -f "$result" ]; then
+            jq -r '.cases[] | .name as $name | (.arms.with // []) | to_entries[] | select(.value.tracePath != null) | "\($name)-run\(.key + 1)\t\(.value.tracePath)"' "$result" |
+              while IFS=$'\t' read -r label trace; do
+                if [ -f "$trace" ]; then cp "$trace" "$out/traces/$label.jsonl"; fi
+              done
+          fi
+          # Fail whenever not every case ran, so a dead key or a broken mock can't leave the job green.
+          if [ "$code" -eq 2 ]; then
+            reason="$(jq -r '.partialReason // "unknown"' "$result" 2>/dev/null || echo unknown)"
+            echo "::error::Partial run ($reason): the cost cap was hit or the key was rejected, so not every case ran. See the job summary."
+            exit 2
+          fi
+          if [ -f "$result" ] && [ "$(jq '[.cases[].arms.with[] | select(.error != null or .aborted != null)] | length' "$result")" -gt 0 ]; then
+            echo "::error::Some runs didn't finish. See the job summary."
+            exit 1
+          fi
+          if [ "$code" -ne 0 ]; then
+            echo "::error::A case scored below AGENT_EVALS_THRESHOLD ($THRESHOLD), or a case failed to load. See the job summary."
+            exit "$code"
+          fi
+
+      # Artifacts aren't masked like logs, so never upload output that contains the key.
+      - name: Check the output for the key
+        id: scan
+        if: always()
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          out="$RUNNER_TEMP/kapso-evals"
+          if [ -d "$out" ] && [ -n "$ANTHROPIC_API_KEY" ] && grep -rqF -- "$ANTHROPIC_API_KEY" "$out"; then
+            echo "::error::The API key appears in the eval output, so the output was deleted instead of uploaded."
+            rm -rf "${out:?}"
+            exit 1
+          fi
+
+      # The table in the "Run agent evals" log comes from claude plugin eval. This prints a
+      # plain-language version of the same results to the log and to the run's Summary page.
+      - name: Show results
+        if: always()
+        run: node scripts/summarize-agent-evals.mjs "$RUNNER_TEMP/kapso-evals/aggregate-result.json" evals/kapso
+
+      - name: Upload report
+        if: always() && steps.scan.outcome == 'success'
+        uses: actions/upload-artifact@v4
+        with:
+          name: kapso-agent-evals-${{ matrix.model }}
+          path: ${{ runner.temp }}/kapso-evals
+          if-no-files-found: ignore

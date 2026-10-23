@@ -1,0 +1,35 @@
+{
+  "data": {
+    "finding_id": "fnd_example_003",
+    "evidence_revision": 1,
+    "source_events": [
+      {
+        "name": "insurance_question_escalated",
+        "occurred_at": "2026-10-18T15:20:00Z",
+        "conversation_id": "conv_example_118",
+        "properties": {
+          "topic": "coverage"
+        }
+      }
+    ],
+    "affected_conversations": {
+      "count": 3,
+      "sample": [
+        {
+          "conversation_id": "conv_example_118",
+          "contact_name": "Casey Example",
+          "last_inbound_text": "Do you take my insurance?",
+          "last_inbound_at": "2026-10-18T15:11:00Z"
+        }
+      ]
+    },
+    "comparison": {
+      "previous_7d": 7,
+      "last_7d": 3
+    },
+    "related_findings": []
+  },
+  "meta": {
+    "truncated": true
+  }
+}

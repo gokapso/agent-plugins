@@ -1,0 +1,19 @@
+{
+  "data": {
+    "finding": {
+      "id": "fnd_example_003",
+      "signal_name": "insurance_question_escalated",
+      "direction": "falling",
+      "status": "candidate",
+      "affected_count": 3,
+      "affected_unit": "conversations",
+      "last_observed_at": "2026-10-18T15:20:00Z",
+      "related_findings_count": 0,
+      "investigation": null,
+      "verification": null,
+      "evidence_revision": 1,
+      "related_findings": []
+    }
+  },
+  "next": []
+}

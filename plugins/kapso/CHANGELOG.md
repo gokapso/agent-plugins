@@ -6,6 +6,7 @@
 - Added native signup path, conversation-card, and reviewed inbox reply instructions.
 - Kept app-only mutations in the user-operated UI and retained hardened direct API scripts.
 - Updated Codex listing metadata, review scenarios, and UI installation guidance.
+- Declared the Kapso MCP server as an HTTP server so Claude Code loads it, and added Claude Code plugin validation to CI.
 
 ## 0.1.2
 

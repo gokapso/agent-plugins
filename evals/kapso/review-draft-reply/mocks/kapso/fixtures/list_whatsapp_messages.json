@@ -1,0 +1,86 @@
+{
+  "data": [
+    {
+      "context": null,
+      "from": "12025550161",
+      "from_parent_user_id": null,
+      "from_user_id": "bsu_example_001",
+      "id": "wamid.EXAMPLE_RC_3",
+      "kapso": {
+        "direction": "inbound",
+        "status": "delivered",
+        "processing_status": "processed",
+        "origin": "cloud_api",
+        "phone_number": "+12025550161",
+        "phone_number_id": "pn_example_001",
+        "has_media": false,
+        "whatsapp_conversation_id": "conv_example_001",
+        "contact_name": "Review Contact",
+        "content": "Great. Do you also have Saturday appointments for my son?"
+      },
+      "text": {
+        "body": "Great. Do you also have Saturday appointments for my son?"
+      },
+      "timestamp": "1792600800",
+      "type": "text",
+      "username": null
+    },
+    {
+      "context": null,
+      "from": null,
+      "from_parent_user_id": null,
+      "from_user_id": null,
+      "id": "wamid.EXAMPLE_RC_2",
+      "kapso": {
+        "direction": "outbound",
+        "status": "read",
+        "processing_status": "processed",
+        "origin": "cloud_api",
+        "phone_number": "+12025550161",
+        "phone_number_id": "pn_example_001",
+        "has_media": false,
+        "whatsapp_conversation_id": "conv_example_001",
+        "contact_name": "Review Contact",
+        "content": "Yes, Thursday at 3pm is confirmed."
+      },
+      "text": {
+        "body": "Yes, Thursday at 3pm is confirmed."
+      },
+      "timestamp": "1792598700",
+      "type": "text",
+      "username": null
+    },
+    {
+      "context": null,
+      "from": "12025550161",
+      "from_parent_user_id": null,
+      "from_user_id": "bsu_example_001",
+      "id": "wamid.EXAMPLE_RC_1",
+      "kapso": {
+        "direction": "inbound",
+        "status": "read",
+        "processing_status": "processed",
+        "origin": "cloud_api",
+        "phone_number": "+12025550161",
+        "phone_number_id": "pn_example_001",
+        "has_media": false,
+        "whatsapp_conversation_id": "conv_example_001",
+        "contact_name": "Review Contact",
+        "content": "Hi, is my cleaning still on Thursday at 3pm?"
+      },
+      "text": {
+        "body": "Hi, is my cleaning still on Thursday at 3pm?"
+      },
+      "timestamp": "1792598280",
+      "type": "text",
+      "username": null
+    }
+  ],
+  "meta": {
+    "page": 1,
+    "per_page": 20,
+    "total_pages": 1,
+    "total_count": 3,
+    "truncated": false
+  }
+}

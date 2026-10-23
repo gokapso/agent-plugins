@@ -1,0 +1,17 @@
+{
+  "data": {
+    "finding": {
+      "id": "fnd_example_001",
+      "investigation": {
+        "status": "queued",
+        "retryable": false,
+        "retry_reason": null,
+        "completed_at": null,
+        "error_message": null,
+        "cause_title": null,
+        "summary": null
+      }
+    }
+  },
+  "next": []
+}

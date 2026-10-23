@@ -1,0 +1,13 @@
+{
+  "data": {
+    "finding": {
+      "id": "fnd_example_001",
+      "verification": {
+        "status": "monitoring",
+        "trigger_type": "manual",
+        "completed_at": null
+      }
+    }
+  },
+  "next": []
+}

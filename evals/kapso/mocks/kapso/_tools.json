@@ -1,0 +1,2011 @@
+{
+  "tools": [
+    {
+      "name": "status",
+      "description": "For Open Kapso or Get started, check the authenticated project and call the returned read-only inbox or setup UI tool in the same turn without asking the user to choose. An existing number opens the inbox; no number opens setup. For an explicit number-connection request, pass intent connect_whatsapp, even without a method and even if a number is already connected. After account connection, continue the original request. For a specified connection path, pass method and follow the returned setup arguments; Do not repeat the choice. OAuth account access requires no API key. A single customer is selected automatically in the setup UI.",
+      "inputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "properties": {
+          "intent": {
+            "type": "string",
+            "enum": [
+              "connect_whatsapp"
+            ],
+            "description": "Use only for an explicit request to connect a number"
+          },
+          "method": {
+            "type": "string",
+            "enum": [
+              "instant_setup",
+              "byo_sim",
+              "coexistence"
+            ]
+          },
+          "goal": {
+            "type": "string",
+            "maxLength": 1000
+          }
+        },
+        "required": [],
+        "type": "object"
+      },
+      "annotations": {
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false,
+        "readOnlyHint": true,
+        "title": "Kapso project status"
+      }
+    },
+    {
+      "name": "search_logs",
+      "description": "Search indexed project logs for request IDs, WhatsApp wamids, endpoints, webhook delivery IDs, Meta events, WhatsApp message events, and workflow execution IDs. Returns indexed log events including payload and search_text when available.",
+      "inputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Optional text or identifier to search for."
+          },
+          "period": {
+            "type": "string",
+            "enum": [
+              "24h",
+              "7d",
+              "30d"
+            ],
+            "description": "Time window: 24h, 7d, or 30d. Default: 24h."
+          },
+          "source": {
+            "type": "string",
+            "enum": [
+              "all",
+              "external_api_log",
+              "whatsapp_webhook_event",
+              "whatsapp_message_event",
+              "flow_event",
+              "function_invocation_event",
+              "function_log_event",
+              "webhook_delivery"
+            ],
+            "description": "Optional source: all, external_api_log, whatsapp_webhook_event, whatsapp_message_event, flow_event, or webhook_delivery."
+          },
+          "problems_only": {
+            "type": "boolean",
+            "description": "Only return likely problem events. Defaults true for broad searches."
+          },
+          "limit": {
+            "type": "integer",
+            "description": "Maximum events to return. Default 10, max 20."
+          },
+          "cursor": {
+            "type": "string",
+            "description": "Optional pagination cursor from a previous response."
+          },
+          "filters": {
+            "type": "array",
+            "description": "Optional exact filters as {key, value} entries. Omit empty values and placeholders.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "enum": [
+                    "agent_execution_id",
+                    "api_key_id",
+                    "business_account_id",
+                    "business_scoped_user_id",
+                    "cf_ray",
+                    "direction",
+                    "edge_label",
+                    "endpoint_contains",
+                    "error_class",
+                    "event",
+                    "event_action",
+                    "event_id",
+                    "event_type",
+                    "eventable_id",
+                    "eventable_type",
+                    "field",
+                    "flow_event_id",
+                    "flow_execution_id",
+                    "flow_id",
+                    "flow_step_id",
+                    "function_id",
+                    "function_invocation_id",
+                    "function_type",
+                    "has_status_error",
+                    "http_method",
+                    "invoke_context",
+                    "level",
+                    "message_type",
+                    "origin",
+                    "outcome",
+                    "parent_business_scoped_user_id",
+                    "phone_number",
+                    "phone_number_id",
+                    "processed",
+                    "processing_status",
+                    "request_id",
+                    "request_method",
+                    "request_url_host",
+                    "request_url_path",
+                    "resource_id",
+                    "resource_type",
+                    "response_status",
+                    "status",
+                    "step_identifier",
+                    "step_type",
+                    "user_id",
+                    "username",
+                    "webhook_id",
+                    "whatsapp_broadcast_id",
+                    "whatsapp_config_id",
+                    "whatsapp_conversation_id",
+                    "whatsapp_message_id",
+                    "whatsapp_template_id"
+                  ],
+                  "description": "Filter key to apply."
+                },
+                "value": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "integer"
+                    },
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "boolean"
+                    }
+                  ],
+                  "description": "Exact filter value. Use integer for response_status and boolean only for processed or has_status_error."
+                }
+              },
+              "required": [
+                "key",
+                "value"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [],
+        "type": "object"
+      },
+      "annotations": {
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false,
+        "readOnlyHint": true,
+        "title": "Search project logs"
+      }
+    },
+    {
+      "name": "list_whatsapp_conversations",
+      "description": "List WhatsApp conversations, optionally scoped to a WhatsApp number.",
+      "inputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "properties": {
+          "phone_number_id": {
+            "type": "string",
+            "description": "Canonical Meta phone number ID for a number in this project."
+          },
+          "phone_number": {
+            "type": "string",
+            "description": "Display phone number used to select a project WhatsApp number."
+          },
+          "number_ref": {
+            "type": "string",
+            "description": "Canonical phone number ID, internal configuration UUID, or display phone number."
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "active",
+              "ended"
+            ]
+          },
+          "assigned_user_id": {
+            "type": "string"
+          },
+          "unassigned": {
+            "type": "boolean"
+          },
+          "conversation_phone_number": {
+            "type": "string"
+          },
+          "created_after": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "created_before": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "last_active_after": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "last_active_before": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100,
+            "default": 20
+          },
+          "after": {
+            "type": "string",
+            "description": "Opaque cursor returned by the previous list response; cannot be combined with before."
+          },
+          "before": {
+            "type": "string",
+            "description": "Opaque cursor returned by a list response; cannot be combined with after."
+          },
+          "page": {
+            "type": "integer",
+            "minimum": 1,
+            "default": 1
+          },
+          "per_page": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100,
+            "default": 20
+          }
+        },
+        "required": [],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "annotations": {
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false,
+        "readOnlyHint": true,
+        "title": "List WhatsApp conversations"
+      }
+    },
+    {
+      "name": "get_whatsapp_conversation",
+      "description": "Get a WhatsApp conversation by id.",
+      "inputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "properties": {
+          "id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "annotations": {
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false,
+        "readOnlyHint": true,
+        "title": "Get WhatsApp conversation"
+      }
+    },
+    {
+      "name": "list_whatsapp_messages",
+      "description": "List WhatsApp messages with cursor pagination.",
+      "inputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "properties": {
+          "phone_number_id": {
+            "type": "string",
+            "description": "Canonical Meta phone number ID for a number in this project."
+          },
+          "phone_number": {
+            "type": "string",
+            "description": "Display phone number used to select a project WhatsApp number."
+          },
+          "number_ref": {
+            "type": "string",
+            "description": "Canonical phone number ID, internal configuration UUID, or display phone number."
+          },
+          "conversation_id": {
+            "type": "string"
+          },
+          "conversation_phone_number": {
+            "type": "string"
+          },
+          "business_scoped_user_id": {
+            "type": "string"
+          },
+          "direction": {
+            "type": "string",
+            "enum": [
+              "inbound",
+              "outbound"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "sent",
+              "delivered",
+              "read",
+              "failed"
+            ]
+          },
+          "message_type": {
+            "type": "string"
+          },
+          "has_media": {
+            "type": "boolean"
+          },
+          "since": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "until": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100,
+            "default": 20
+          },
+          "after": {
+            "type": "string",
+            "description": "Opaque cursor returned by the previous list response; cannot be combined with before."
+          },
+          "before": {
+            "type": "string",
+            "description": "Opaque cursor returned by a list response; cannot be combined with after."
+          },
+          "page": {
+            "type": "integer",
+            "minimum": 1,
+            "default": 1
+          },
+          "per_page": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100,
+            "default": 20
+          }
+        },
+        "required": [],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "annotations": {
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false,
+        "readOnlyHint": true,
+        "title": "List WhatsApp messages"
+      }
+    },
+    {
+      "name": "get_whatsapp_message",
+      "description": "Get a WhatsApp message by WhatsApp message id or internal id.",
+      "inputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "phone_number_id": {
+            "type": "string",
+            "description": "Canonical Meta phone number ID for a number in this project."
+          },
+          "phone_number": {
+            "type": "string",
+            "description": "Display phone number used to select a project WhatsApp number."
+          },
+          "number_ref": {
+            "type": "string",
+            "description": "Canonical phone number ID, internal configuration UUID, or display phone number."
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "annotations": {
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false,
+        "readOnlyHint": true,
+        "title": "Get WhatsApp message"
+      }
+    },
+    {
+      "name": "send_whatsapp_message",
+      "description": "Send a WhatsApp message. Use text+to for shortcut text sends, or payload for a raw Cloud API message payload. Requires a number selector. Retrying can send a duplicate message; delivery is irreversible.",
+      "inputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "properties": {
+          "phone_number_id": {
+            "type": "string",
+            "description": "Canonical Meta phone number ID for a number in this project."
+          },
+          "phone_number": {
+            "type": "string",
+            "description": "Display phone number used to select a project WhatsApp number."
+          },
+          "number_ref": {
+            "type": "string",
+            "description": "Canonical phone number ID, internal configuration UUID, or display phone number."
+          },
+          "to": {
+            "type": "string"
+          },
+          "recipient": {
+            "type": "string"
+          },
+          "business_scoped_user_id": {
+            "type": "string"
+          },
+          "parent_business_scoped_user_id": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          },
+          "payload": {
+            "type": "object",
+            "properties": {
+              "messaging_product": {
+                "type": "string",
+                "enum": [
+                  "whatsapp"
+                ]
+              },
+              "recipient_type": {
+                "type": "string",
+                "enum": [
+                  "individual"
+                ]
+              },
+              "to": {
+                "type": "string"
+              },
+              "recipient": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string",
+                "enum": [
+                  "text",
+                  "template",
+                  "image",
+                  "audio",
+                  "video",
+                  "document",
+                  "sticker",
+                  "interactive",
+                  "location",
+                  "contacts",
+                  "reaction",
+                  "status"
+                ]
+              },
+              "status": {
+                "type": "string",
+                "enum": [
+                  "read"
+                ]
+              },
+              "message_id": {
+                "type": "string"
+              },
+              "typing_indicator": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "text"
+                    ]
+                  }
+                },
+                "required": [
+                  "type"
+                ],
+                "additionalProperties": false
+              },
+              "biz_opaque_callback_data": {
+                "type": "string"
+              },
+              "text": {
+                "type": "object",
+                "properties": {
+                  "body": {
+                    "type": "string"
+                  },
+                  "preview_url": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "body"
+                ],
+                "additionalProperties": false
+              },
+              "template": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "language": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "code"
+                    ],
+                    "additionalProperties": true
+                  },
+                  "components": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "type": {
+                          "type": "string"
+                        },
+                        "sub_type": {
+                          "type": "string"
+                        },
+                        "index": {
+                          "type": [
+                            "string",
+                            "integer"
+                          ]
+                        },
+                        "parameters": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "type": "string"
+                              },
+                              "text": {
+                                "type": "string"
+                              },
+                              "parameter_name": {
+                                "type": "string"
+                              },
+                              "image": {
+                                "type": "object",
+                                "properties": {
+                                  "id": {
+                                    "type": "string"
+                                  },
+                                  "link": {
+                                    "type": "string",
+                                    "format": "uri"
+                                  },
+                                  "caption": {
+                                    "type": "string"
+                                  },
+                                  "filename": {
+                                    "type": "string"
+                                  }
+                                },
+                                "anyOf": [
+                                  {
+                                    "required": [
+                                      "id"
+                                    ]
+                                  },
+                                  {
+                                    "required": [
+                                      "link"
+                                    ]
+                                  }
+                                ],
+                                "additionalProperties": true
+                              },
+                              "video": {
+                                "type": "object",
+                                "properties": {
+                                  "id": {
+                                    "type": "string"
+                                  },
+                                  "link": {
+                                    "type": "string",
+                                    "format": "uri"
+                                  },
+                                  "caption": {
+                                    "type": "string"
+                                  },
+                                  "filename": {
+                                    "type": "string"
+                                  }
+                                },
+                                "anyOf": [
+                                  {
+                                    "required": [
+                                      "id"
+                                    ]
+                                  },
+                                  {
+                                    "required": [
+                                      "link"
+                                    ]
+                                  }
+                                ],
+                                "additionalProperties": true
+                              },
+                              "document": {
+                                "type": "object",
+                                "properties": {
+                                  "id": {
+                                    "type": "string"
+                                  },
+                                  "link": {
+                                    "type": "string",
+                                    "format": "uri"
+                                  },
+                                  "caption": {
+                                    "type": "string"
+                                  },
+                                  "filename": {
+                                    "type": "string"
+                                  }
+                                },
+                                "anyOf": [
+                                  {
+                                    "required": [
+                                      "id"
+                                    ]
+                                  },
+                                  {
+                                    "required": [
+                                      "link"
+                                    ]
+                                  }
+                                ],
+                                "additionalProperties": true
+                              }
+                            },
+                            "required": [
+                              "type"
+                            ],
+                            "additionalProperties": true
+                          }
+                        }
+                      },
+                      "required": [
+                        "type"
+                      ],
+                      "additionalProperties": true
+                    }
+                  }
+                },
+                "required": [
+                  "name",
+                  "language"
+                ],
+                "additionalProperties": true
+              },
+              "context": {
+                "type": "object",
+                "properties": {
+                  "message_id": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message_id"
+                ],
+                "additionalProperties": true
+              },
+              "image": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "link": {
+                    "type": "string",
+                    "format": "uri"
+                  },
+                  "caption": {
+                    "type": "string"
+                  },
+                  "filename": {
+                    "type": "string"
+                  }
+                },
+                "anyOf": [
+                  {
+                    "required": [
+                      "id"
+                    ]
+                  },
+                  {
+                    "required": [
+                      "link"
+                    ]
+                  }
+                ],
+                "additionalProperties": true
+              },
+              "audio": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "link": {
+                    "type": "string",
+                    "format": "uri"
+                  },
+                  "caption": {
+                    "type": "string"
+                  },
+                  "filename": {
+                    "type": "string"
+                  }
+                },
+                "anyOf": [
+                  {
+                    "required": [
+                      "id"
+                    ]
+                  },
+                  {
+                    "required": [
+                      "link"
+                    ]
+                  }
+                ],
+                "additionalProperties": true
+              },
+              "video": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "link": {
+                    "type": "string",
+                    "format": "uri"
+                  },
+                  "caption": {
+                    "type": "string"
+                  },
+                  "filename": {
+                    "type": "string"
+                  }
+                },
+                "anyOf": [
+                  {
+                    "required": [
+                      "id"
+                    ]
+                  },
+                  {
+                    "required": [
+                      "link"
+                    ]
+                  }
+                ],
+                "additionalProperties": true
+              },
+              "document": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "link": {
+                    "type": "string",
+                    "format": "uri"
+                  },
+                  "caption": {
+                    "type": "string"
+                  },
+                  "filename": {
+                    "type": "string"
+                  }
+                },
+                "anyOf": [
+                  {
+                    "required": [
+                      "id"
+                    ]
+                  },
+                  {
+                    "required": [
+                      "link"
+                    ]
+                  }
+                ],
+                "additionalProperties": true
+              },
+              "sticker": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "link": {
+                    "type": "string",
+                    "format": "uri"
+                  },
+                  "caption": {
+                    "type": "string"
+                  },
+                  "filename": {
+                    "type": "string"
+                  }
+                },
+                "anyOf": [
+                  {
+                    "required": [
+                      "id"
+                    ]
+                  },
+                  {
+                    "required": [
+                      "link"
+                    ]
+                  }
+                ],
+                "additionalProperties": true
+              },
+              "interactive": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string"
+                  },
+                  "header": {
+                    "type": "object",
+                    "properties": {},
+                    "additionalProperties": true
+                  },
+                  "body": {
+                    "type": "object",
+                    "properties": {
+                      "text": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "text"
+                    ],
+                    "additionalProperties": true
+                  },
+                  "footer": {
+                    "type": "object",
+                    "properties": {
+                      "text": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "text"
+                    ],
+                    "additionalProperties": true
+                  },
+                  "action": {
+                    "type": "object",
+                    "properties": {},
+                    "additionalProperties": true
+                  }
+                },
+                "required": [
+                  "type",
+                  "action"
+                ],
+                "additionalProperties": true
+              },
+              "location": {
+                "type": "object",
+                "properties": {
+                  "latitude": {
+                    "type": "number"
+                  },
+                  "longitude": {
+                    "type": "number"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "address": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "latitude",
+                  "longitude"
+                ],
+                "additionalProperties": true
+              },
+              "contacts": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "object",
+                      "properties": {},
+                      "additionalProperties": true
+                    },
+                    "phones": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {},
+                        "additionalProperties": true
+                      }
+                    }
+                  },
+                  "additionalProperties": true
+                }
+              },
+              "reaction": {
+                "type": "object",
+                "properties": {
+                  "message_id": {
+                    "type": "string"
+                  },
+                  "emoji": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                },
+                "required": [
+                  "message_id"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "messaging_product"
+            ],
+            "additionalProperties": true,
+            "anyOf": [
+              {
+                "required": [
+                  "type"
+                ],
+                "anyOf": [
+                  {
+                    "required": [
+                      "to"
+                    ]
+                  },
+                  {
+                    "required": [
+                      "recipient"
+                    ]
+                  }
+                ]
+              },
+              {
+                "required": [
+                  "status",
+                  "message_id"
+                ]
+              }
+            ],
+            "description": "Cloud API message content for the fixed messages endpoint. payload overrides shortcut text and recipients. Media uses id or link; templates specify name/language/components. Read status uses status=read and message_id, optionally typing_indicator."
+          },
+          "graph_version": {
+            "type": "string"
+          }
+        },
+        "required": [],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "annotations": {
+        "destructiveHint": true,
+        "idempotentHint": false,
+        "openWorldHint": true,
+        "readOnlyHint": false,
+        "title": "Send WhatsApp message"
+      }
+    },
+    {
+      "name": "mark_whatsapp_messages_read",
+      "description": "Mark one inbound message, or inbound messages in a conversation before a timestamp, as read.",
+      "inputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "properties": {
+          "message_id": {
+            "type": "string"
+          },
+          "conversation_id": {
+            "type": "string"
+          },
+          "before": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "annotations": {
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": true,
+        "readOnlyHint": false,
+        "title": "Mark WhatsApp messages read"
+      }
+    },
+    {
+      "name": "create_whatsapp_webhook",
+      "description": "Create a project webhook with an explicit events array (for example [\"project.event\"]), or a number webhook when a number selector is supplied. Subscribing to project.event requires mcp:events:read.",
+      "inputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "properties": {
+          "url": {
+            "type": "string"
+          },
+          "phone_number_id": {
+            "type": "string",
+            "description": "Canonical Meta phone number ID for a number in this project."
+          },
+          "phone_number": {
+            "type": "string",
+            "description": "Display phone number used to select a project WhatsApp number."
+          },
+          "number_ref": {
+            "type": "string",
+            "description": "Canonical phone number ID, internal configuration UUID, or display phone number."
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "kapso",
+              "meta"
+            ]
+          },
+          "secret_key": {
+            "type": "string"
+          },
+          "events": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "active": {
+            "type": "boolean"
+          },
+          "payload_version": {
+            "type": "string",
+            "enum": [
+              "v1",
+              "v2"
+            ]
+          },
+          "headers": {
+            "type": "object",
+            "properties": {},
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "buffer_enabled": {
+            "type": "boolean"
+          },
+          "buffer_window_seconds": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "max_buffer_size": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "buffer_events": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "inactivity_minutes": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "url"
+        ],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "annotations": {
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false,
+        "readOnlyHint": false,
+        "title": "Create WhatsApp webhook"
+      }
+    },
+    {
+      "name": "test_whatsapp_webhook",
+      "description": "Queue a sample webhook delivery.",
+      "inputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "event_type": {
+            "type": "string"
+          },
+          "phone_number_id": {
+            "type": "string",
+            "description": "Canonical Meta phone number ID for a number in this project."
+          },
+          "phone_number": {
+            "type": "string",
+            "description": "Display phone number used to select a project WhatsApp number."
+          },
+          "number_ref": {
+            "type": "string",
+            "description": "Canonical phone number ID, internal configuration UUID, or display phone number."
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "annotations": {
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": true,
+        "readOnlyHint": false,
+        "title": "Test WhatsApp webhook"
+      }
+    },
+    {
+      "name": "list_whatsapp_webhook_deliveries",
+      "description": "List project and number webhook deliveries, newest first.",
+      "inputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "properties": {
+          "webhook_id": {
+            "type": "string"
+          },
+          "phone_number_id": {
+            "type": "string",
+            "description": "Canonical Meta phone number ID for a number in this project."
+          },
+          "phone_number": {
+            "type": "string",
+            "description": "Display phone number used to select a project WhatsApp number."
+          },
+          "number_ref": {
+            "type": "string",
+            "description": "Canonical phone number ID, internal configuration UUID, or display phone number."
+          },
+          "status": {
+            "type": "string"
+          },
+          "errors_only": {
+            "type": "boolean"
+          },
+          "event": {
+            "type": "string"
+          },
+          "period": {
+            "type": "string"
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100,
+            "default": 20
+          },
+          "after": {
+            "type": "string",
+            "description": "Opaque cursor returned by the previous list response; cannot be combined with before."
+          },
+          "before": {
+            "type": "string",
+            "description": "Opaque cursor returned by a list response; cannot be combined with after."
+          }
+        },
+        "required": [],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "annotations": {
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false,
+        "readOnlyHint": true,
+        "title": "List WhatsApp webhook deliveries"
+      }
+    },
+    {
+      "name": "create_whatsapp_broadcast",
+      "description": "Create a draft broadcast. whatsapp_template_id accepts the Meta template id or legacy internal id. The template must belong to the selected project number.",
+      "inputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "phone_number_id": {
+            "type": "string",
+            "description": "Canonical Meta phone number ID for a number in this project."
+          },
+          "whatsapp_template_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "phone_number_id",
+          "whatsapp_template_id"
+        ],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "annotations": {
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false,
+        "readOnlyHint": false,
+        "title": "Create WhatsApp broadcast"
+      }
+    },
+    {
+      "name": "add_whatsapp_broadcast_recipients",
+      "description": "Add up to 1000 recipients while draft or scheduled and imports/copies are complete. Each recipient supplies phone_number or a project whatsapp_contact_id, plus template_parameters (object or positional array) or Meta components. Components take precedence. Duplicates are skipped. Malformed entries produce per-recipient errors while valid entries are added; inspect added, duplicates and errors before sending.",
+      "inputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Project broadcast UUID."
+          },
+          "recipients": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 1000,
+            "items": {
+              "type": [
+                "object",
+                "string",
+                "number",
+                "boolean",
+                "array",
+                "null"
+              ],
+              "description": "Recipient object. Other JSON values produce a per-recipient error.",
+              "properties": {
+                "phone_number": {
+                  "type": "string"
+                },
+                "whatsapp_contact_id": {
+                  "type": "string"
+                },
+                "template_parameters": {
+                  "type": [
+                    "object",
+                    "array",
+                    "string",
+                    "number",
+                    "boolean",
+                    "null"
+                  ],
+                  "description": "Object or positional array. Scalars produce a per-recipient error unless components override them; null means no parameters.",
+                  "additionalProperties": true,
+                  "items": {}
+                },
+                "components": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "description": "Component type; missing type produces a per-recipient error."
+                      },
+                      "sub_type": {
+                        "type": "string"
+                      },
+                      "index": {
+                        "type": [
+                          "string",
+                          "integer"
+                        ]
+                      },
+                      "parameters": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "additionalProperties": true
+                        }
+                      }
+                    },
+                    "additionalProperties": true
+                  }
+                }
+              },
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "id",
+          "recipients"
+        ],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "annotations": {
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false,
+        "readOnlyHint": false,
+        "title": "Add WhatsApp broadcast recipients"
+      }
+    },
+    {
+      "name": "send_whatsapp_broadcast",
+      "description": "Immediately start sending a draft broadcast with recipients. Queues asynchronous delivery; poll get_whatsapp_broadcast for progress. Cannot send scheduled, sending, stopped, completed, or failed broadcasts.",
+      "inputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "properties": {
+          "id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "annotations": {
+        "destructiveHint": true,
+        "idempotentHint": false,
+        "openWorldHint": true,
+        "readOnlyHint": false,
+        "title": "Send WhatsApp broadcast"
+      }
+    },
+    {
+      "name": "schedule_whatsapp_broadcast",
+      "description": "Schedule or reschedule an editable draft/scheduled broadcast with recipients. scheduled_at must be a future ISO-8601 timestamp with timezone. Delivery is asynchronous.",
+      "inputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "scheduled_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id",
+          "scheduled_at"
+        ],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "annotations": {
+        "destructiveHint": true,
+        "idempotentHint": false,
+        "openWorldHint": true,
+        "readOnlyHint": false,
+        "title": "Schedule WhatsApp broadcast"
+      }
+    },
+    {
+      "name": "start_workflow_execution",
+      "description": "Start an active workflow through its API trigger. This can send real WhatsApp messages to phone_number. Requires confirm: true (a JSON boolean). Runs asynchronously: poll get_workflow_execution with the returned id. May run automation or send messages; retries can repeat external effects.",
+      "inputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "properties": {
+          "workflow_id": {
+            "type": "string"
+          },
+          "confirm": {
+            "type": "boolean",
+            "enum": [
+              true
+            ]
+          },
+          "phone_number": {
+            "type": "string",
+            "description": "Recipient phone number. Alternatively supply a BSUID as recipient."
+          },
+          "recipient": {
+            "type": "string"
+          },
+          "phone_number_id": {
+            "type": "string",
+            "description": "Canonical Meta phone number ID for a number in this project."
+          },
+          "variables": {
+            "type": "object",
+            "properties": {},
+            "additionalProperties": true,
+            "description": "User variables; mapped to vars in the execution context."
+          },
+          "context": {
+            "type": "object",
+            "properties": {},
+            "additionalProperties": true,
+            "description": "JSON object; application-specific keys are preserved."
+          },
+          "initial_data": {
+            "type": [
+              "object",
+              "array",
+              "string",
+              "number",
+              "boolean",
+              "null"
+            ],
+            "description": "Initial JSON message content passed to the workflow API trigger."
+          }
+        },
+        "required": [
+          "workflow_id",
+          "confirm"
+        ],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "annotations": {
+        "destructiveHint": true,
+        "idempotentHint": false,
+        "openWorldHint": true,
+        "readOnlyHint": false,
+        "title": "Start workflow execution"
+      }
+    },
+    {
+      "name": "invoke_function",
+      "description": "Invoke a deployed function with a JSON body and return its response. May run automation or send messages; retries can repeat external effects.",
+      "inputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "body": {
+            "type": [
+              "object",
+              "array",
+              "string",
+              "number",
+              "boolean",
+              "null"
+            ],
+            "description": "JSON request body passed to this function only. Objects may have application-specific keys; arrays are positional arguments. Omission or null sends an empty object."
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "annotations": {
+        "destructiveHint": true,
+        "idempotentHint": false,
+        "openWorldHint": true,
+        "readOnlyHint": false,
+        "title": "Invoke function"
+      }
+    },
+    {
+      "name": "list_findings",
+      "description": "List visible project Findings with REST-compatible cursors. Use limit (1–25, default 20), after, or before.",
+      "inputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "properties": {
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 25,
+            "default": 20
+          },
+          "after": {
+            "type": "string",
+            "description": "Opaque cursor returned by the previous list response; cannot be combined with before."
+          },
+          "before": {
+            "type": "string",
+            "description": "Opaque cursor returned by a list response; cannot be combined with after."
+          }
+        },
+        "required": [],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "annotations": {
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false,
+        "readOnlyHint": true,
+        "title": "List findings"
+      }
+    },
+    {
+      "name": "get_finding",
+      "description": "Get one authoritative Finding.",
+      "inputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "properties": {
+          "finding_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "finding_id"
+        ],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "annotations": {
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false,
+        "readOnlyHint": true,
+        "title": "Get finding"
+      }
+    },
+    {
+      "name": "read_finding_evidence",
+      "description": "Read bounded evidence for one Finding.",
+      "inputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "properties": {
+          "finding_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "finding_id"
+        ],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "annotations": {
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false,
+        "readOnlyHint": true,
+        "title": "Read finding evidence"
+      }
+    },
+    {
+      "name": "start_finding_investigation",
+      "description": "Start or retry the specialized investigation for one Finding.",
+      "inputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "properties": {
+          "finding_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "finding_id"
+        ],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "annotations": {
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": true,
+        "readOnlyHint": false,
+        "title": "Start finding investigation"
+      }
+    },
+    {
+      "name": "dismiss_finding",
+      "description": "Dismiss one Finding with an attributed reason and note.",
+      "inputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "properties": {
+          "finding_id": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string",
+            "enum": [
+              "not_relevant",
+              "expected_behavior",
+              "already_fixed",
+              "incorrect",
+              "other"
+            ]
+          },
+          "note": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "finding_id",
+          "reason",
+          "note"
+        ],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "annotations": {
+        "destructiveHint": true,
+        "idempotentHint": false,
+        "openWorldHint": false,
+        "readOnlyHint": false,
+        "title": "Dismiss finding"
+      }
+    },
+    {
+      "name": "mark_finding_addressed",
+      "description": "Begin monitoring a Finding after its current investigation is addressed.",
+      "inputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "properties": {
+          "finding_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "finding_id"
+        ],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "annotations": {
+        "destructiveHint": true,
+        "idempotentHint": false,
+        "openWorldHint": false,
+        "readOnlyHint": false,
+        "title": "Mark finding addressed"
+      }
+    },
+    {
+      "name": "kapso_inbox_open",
+      "description": "Open the Kapso WhatsApp inbox beside chat. Optionally select a conversation and propose a text draft for review. Never sends a message. Call again with the conversation_id and draft to present a new suggestion; user edits take precedence.",
+      "inputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "properties": {
+          "conversation_id": {
+            "type": "string"
+          },
+          "draft": {
+            "type": "string",
+            "maxLength": 4096
+          }
+        },
+        "type": "object"
+      },
+      "outputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "properties": {
+          "project": {
+            "type": "object"
+          },
+          "selected_conversation_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "proposed_draft": {
+            "type": [
+              "object",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "project"
+        ],
+        "type": "object"
+      },
+      "annotations": {
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false,
+        "readOnlyHint": true
+      },
+      "_meta": {
+        "ui": {
+          "visibility": [
+            "model",
+            "app"
+          ],
+          "resourceUri": "ui://kapso/inbox-dcf015c94bc5de30.html"
+        },
+        "openai/ui": {
+          "entrypoints": [
+            {
+              "type": "thread"
+            }
+          ],
+          "preferredModelDisplayMode": "fullscreen"
+        }
+      }
+    },
+    {
+      "name": "kapso_inbox_read",
+      "description": "Read the connected project inbox. Search/select conversations or fetch older messages using returned cursors. History is scoped to the selected conversation. Does not send or mark messages read. To present matching or ranked results as inline cards, pass their IDs to kapso_inbox_show_conversations.",
+      "inputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "properties": {
+          "conversation_id": {
+            "type": "string"
+          },
+          "whatsapp_config_id": {
+            "type": "string"
+          },
+          "search": {
+            "type": "string",
+            "maxLength": 100
+          },
+          "after": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "active",
+              "ended",
+              "all"
+            ]
+          },
+          "assignee": {
+            "type": "string",
+            "description": "User ID, unassigned, or all."
+          },
+          "unread_only": {
+            "type": "boolean"
+          },
+          "handoff_only": {
+            "type": "boolean"
+          },
+          "contact_property_filters": {
+            "type": "array",
+            "maxItems": 3,
+            "items": {
+              "type": "object",
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 100
+                },
+                "operator": {
+                  "type": "string",
+                  "enum": [
+                    "eq",
+                    "present",
+                    "missing"
+                  ]
+                },
+                "value": {
+                  "type": "string",
+                  "maxLength": 500
+                }
+              },
+              "required": [
+                "key",
+                "operator"
+              ]
+            }
+          },
+          "messages_after": {
+            "type": "string"
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          }
+        },
+        "type": "object"
+      },
+      "outputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "properties": {
+          "project": {
+            "type": "object"
+          },
+          "conversations": {
+            "type": "array"
+          },
+          "selected_conversation": {
+            "type": [
+              "object",
+              "null"
+            ]
+          },
+          "messages": {
+            "type": "array"
+          },
+          "conversations_after": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "messages_after": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "project",
+          "conversations",
+          "messages"
+        ],
+        "type": "object"
+      },
+      "annotations": {
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false,
+        "readOnlyHint": true
+      },
+      "_meta": {
+        "ui": {
+          "visibility": [
+            "model",
+            "app"
+          ]
+        }
+      }
+    },
+    {
+      "name": "kapso_inbox_show_conversations",
+      "description": "Show selected WhatsApp conversations as inline cards in chat. Use kapso_inbox_read or conversation tools to find matching conversations first, then pass their IDs in the desired order (for example your urgency ranking). Each card shows the contact, destination number name, and latest message; clicking opens the full inbox. Only call for nonempty results; reply in plain text when no conversations match. Does not send or mark messages read.",
+      "inputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "properties": {
+          "conversation_ids": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 20,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 120
+          }
+        },
+        "required": [
+          "conversation_ids"
+        ],
+        "type": "object"
+      },
+      "outputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "properties": {
+          "project": {
+            "type": "object"
+          },
+          "title": {
+            "type": "string"
+          },
+          "conversations": {
+            "type": "array"
+          }
+        },
+        "required": [
+          "project",
+          "title",
+          "conversations"
+        ],
+        "type": "object"
+      },
+      "annotations": {
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false,
+        "readOnlyHint": true
+      },
+      "_meta": {
+        "ui": {
+          "visibility": [
+            "model",
+            "app"
+          ],
+          "resourceUri": "ui://kapso/conversation-cards-b23e6eb0d1d634af.html"
+        },
+        "openai/ui": {
+          "entrypoints": [
+            {
+              "type": "thread"
+            }
+          ],
+          "preferredModelDisplayMode": "inline"
+        }
+      }
+    },
+    {
+      "name": "kapso_setup_open",
+      "description": "Open the current Kapso number choices and hosted WhatsApp signup flow. Pass intent connect_whatsapp for an explicit request to connect a number; without method, this shows the number choices even when a number already exists. When the user specifies a connection path, pass method to take them directly there: coexistence for an existing WhatsApp Business App number, byo_sim for their own SIM, instant_setup for a Kapso US digital number. Do not ask them to choose the path again. Resumes an existing connection attempt or offers the inbox for an already connected number. Does not create links, provision numbers, or send messages.",
+      "inputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "properties": {
+          "customer_id": {
+            "type": "string"
+          },
+          "setup_link_id": {
+            "type": "string"
+          },
+          "intent": {
+            "type": "string",
+            "enum": [
+              "connect_whatsapp"
+            ]
+          },
+          "method": {
+            "type": "string",
+            "enum": [
+              "instant_setup",
+              "byo_sim",
+              "coexistence"
+            ]
+          },
+          "goal": {
+            "type": "string",
+            "maxLength": 1000
+          }
+        },
+        "type": "object"
+      },
+      "annotations": {
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false,
+        "readOnlyHint": true
+      },
+      "_meta": {
+        "ui": {
+          "visibility": [
+            "model",
+            "app"
+          ],
+          "resourceUri": "ui://kapso/setup-aa47712b40a46e15.html"
+        }
+      }
+    }
+  ]
+}

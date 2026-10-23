@@ -1,0 +1,19 @@
+{
+  "data": {
+    "finding": {
+      "id": "fnd_example_001",
+      "signal_name": "reschedule_request_unresolved",
+      "direction": "rising",
+      "status": "open",
+      "affected_count": 41,
+      "affected_unit": "conversations",
+      "last_observed_at": "2026-10-21T18:44:00Z",
+      "related_findings_count": 0,
+      "investigation": null,
+      "verification": null,
+      "evidence_revision": 3,
+      "related_findings": []
+    }
+  },
+  "next": []
+}

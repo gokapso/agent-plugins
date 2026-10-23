@@ -1,0 +1,7 @@
+---
+type: regex
+target: mock_calls
+pattern: 'mcp__plugin_kapso_kapso__(send_whatsapp_message|mark_whatsapp_messages_read|create_whatsapp_broadcast|add_whatsapp_broadcast_recipients|send_whatsapp_broadcast|schedule_whatsapp_broadcast|create_whatsapp_webhook|test_whatsapp_webhook|invoke_function|start_workflow_execution|start_finding_investigation|dismiss_finding|mark_finding_addressed)'
+match: not_contains
+weight: 3
+---

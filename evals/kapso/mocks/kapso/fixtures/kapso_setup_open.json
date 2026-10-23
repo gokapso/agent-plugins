@@ -1,0 +1,32 @@
+{
+  "project": {
+    "id": "prj_example_001",
+    "name": "Example Dental (test)"
+  },
+  "customers": [
+    {
+      "id": "cus_example_001",
+      "name": "Default customer"
+    }
+  ],
+  "setup_enabled": true,
+  "instant_setup_available": true,
+  "show_instant_setup": true,
+  "upgrade_required": false,
+  "upgrade_message": null,
+  "customer_id": "cus_example_001",
+  "setup_link_id": null,
+  "method": null,
+  "state": "choose",
+  "attempt": null,
+  "blockers": [],
+  "number": null,
+  "test": {
+    "received": false,
+    "reply_status": null,
+    "conversation_id": null
+  },
+  "goal": null,
+  "requested_method": null,
+  "requested_connection": false
+}

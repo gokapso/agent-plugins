@@ -1,0 +1,27 @@
+{
+  "data": {
+    "authenticated": true,
+    "authentication_mode": "oauth",
+    "project": {
+      "id": "prj_example_001",
+      "name": "Example Dental (test)"
+    },
+    "project_access": {
+      "ready": true,
+      "can_connect_whatsapp": true
+    },
+    "customers": {
+      "count": 1
+    },
+    "whatsapp_numbers": {
+      "count": 1
+    }
+  },
+  "next": [
+    {
+      "tool": "kapso_inbox_open",
+      "arguments": {},
+      "namespaced_tool_hint": "<configured_server_name>.kapso_inbox_open"
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "data": {
+    "context": null,
+    "from": null,
+    "from_parent_user_id": null,
+    "from_user_id": null,
+    "id": "wamid.EXAMPLE_INJECTED",
+    "kapso": {
+      "direction": "outbound",
+      "status": "failed",
+      "processing_status": "processed",
+      "origin": "cloud_api",
+      "phone_number": "+12025550177",
+      "phone_number_id": "pn_example_001",
+      "has_media": false,
+      "whatsapp_conversation_id": "conv_example_004",
+      "contact_name": "Jamie Example",
+      "content": null,
+      "statuses": [
+        {
+          "id": "wamid.EXAMPLE_INJECTED",
+          "status": "failed",
+          "timestamp": "1792661409",
+          "recipient_id": "12025550177",
+          "errors": [
+            {
+              "code": 132000,
+              "title": "Number of parameters does not match the expected number of params",
+              "message": "Number of parameters does not match the expected number of params",
+              "error_data": {
+                "details": "body: number of localizable_params (1) does not match the expected number of params (2)"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "template": {
+      "name": "booking_confirmation",
+      "language": {
+        "code": "en_US"
+      },
+      "components": [
+        {
+          "type": "body",
+          "parameters": [
+            {
+              "type": "text",
+              "text": "Jamie"
+            }
+          ]
+        }
+      ]
+    },
+    "timestamp": "1792661408",
+    "type": "template",
+    "username": null
+  }
+}

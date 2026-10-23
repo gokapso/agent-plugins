@@ -32,3 +32,11 @@ jobs:
 
       - name: Check JavaScript syntax
         run: npm run check:syntax
+
+      - name: Install Claude Code
+        run: npm install -g @anthropic-ai/claude-code@2.1.309
+
+      - name: Validate Claude Code plugin
+        run: |
+          claude plugin validate .
+          claude plugin validate plugins/kapso

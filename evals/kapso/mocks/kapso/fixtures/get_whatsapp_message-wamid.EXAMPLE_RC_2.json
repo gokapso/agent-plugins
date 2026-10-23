@@ -1,0 +1,27 @@
+{
+  "data": {
+    "context": null,
+    "from": null,
+    "from_parent_user_id": null,
+    "from_user_id": null,
+    "id": "wamid.EXAMPLE_RC_2",
+    "kapso": {
+      "direction": "outbound",
+      "status": "read",
+      "processing_status": "processed",
+      "origin": "cloud_api",
+      "phone_number": "+12025550161",
+      "phone_number_id": "pn_example_001",
+      "has_media": false,
+      "whatsapp_conversation_id": "conv_example_001",
+      "contact_name": "Review Contact",
+      "content": "Yes, Thursday at 3pm is confirmed."
+    },
+    "text": {
+      "body": "Yes, Thursday at 3pm is confirmed."
+    },
+    "timestamp": "1792598700",
+    "type": "text",
+    "username": null
+  }
+}

@@ -98,7 +98,7 @@ Codex users connect their account during UI installation or through the plugin's
 codex mcp login kapso
 ```
 
-Maintainer note: the plugin includes both `mcp.json` and `.mcp.json` because different agent hosts look for different MCP config filenames. They intentionally point to the same Kapso remote MCP endpoint.
+Maintainer note: the plugin includes both `mcp.json` and `.mcp.json` because different agent hosts look for different MCP config filenames. They intentionally point to the same Kapso remote MCP endpoint. `.mcp.json` also sets `"type": "http"`, because Claude Code reads an entry without `type` as a local stdio server and drops it.
 
 ## Examples
 

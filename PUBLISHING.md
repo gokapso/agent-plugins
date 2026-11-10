@@ -2,6 +2,12 @@
 
 Source: https://developers.openai.com/plugins/deploy/submission
 
+## Published listing
+
+Kapso is published at [Kapso in ChatGPT](https://chatgpt.com/plugins/plugin_asdk_app_6ac943a9699c8191afc7dcafdb55d285). Use this listing for ChatGPT installation links; the custom marketplace commands in the README are for other agent hosts.
+
+Submit future releases as updates to the existing plugin. Preserve the source manifest's submission identifier; the public listing identifier is not a replacement for it. Keep the review account and walkthrough available for subsequent reviews.
+
 ## Prepared package
 
 Build the standalone Codex ZIP from the plugin directory, not the marketplace root:

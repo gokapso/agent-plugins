@@ -1,8 +1,18 @@
 # Kapso Agent Plugins
 
-Use Kapso with your favorite agent harness. These plugins give Codex, Cursor, and Claude Code focused skills for building, integrating, and operating WhatsApp automations and Project Event workflows on Kapso.
+Use Kapso in ChatGPT to read WhatsApp conversations and review replies in the inbox. These plugins also give Codex, Cursor, and Claude Code focused skills for building, integrating, and operating WhatsApp automations and Project Event workflows on Kapso.
 
 Missing an agent harness? Open an issue in this repository.
+
+## ChatGPT
+
+[Open Kapso in ChatGPT](https://chatgpt.com/plugins/plugin_asdk_app_6ac943a9699c8191afc7dcafdb55d285).
+
+1. Connect your Kapso account, sign in, and choose a project and permissions.
+2. Ask **Open Kapso** to open the inbox for your connected WhatsApp number.
+3. Find unread conversations, summarize message history, or draft a reply. Review or edit the reply, then click **Send** in the inbox UI.
+
+ChatGPT setup uses browser sign-in; no API key, terminal, or custom marketplace is needed.
 
 ## What It Includes
 
@@ -64,7 +74,7 @@ codex plugin add app-69e50baf29a48191847ceec3bfd887a4@kapso
 ## Prerequisites
 
 - Sign in or create a Kapso account during the host's Connect account flow, then approve project access.
-- Node.js 20+ for the bundled helper scripts.
+- Node.js 20+ only if running the bundled helper scripts; it is not needed to use the ChatGPT plugin.
 - Installing through the Codex UI requests account connection. No API key is needed.
 For CLI-installed plugins that still need authentication, run:
 

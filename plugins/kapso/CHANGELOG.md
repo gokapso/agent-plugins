@@ -1,5 +1,11 @@
 # Changelog
 
+## ChatGPT publication — Nov 10, 2026
+
+- Kapso is now available in the [ChatGPT plugin directory](https://chatgpt.com/plugins/plugin_asdk_app_6ac943a9699c8191afc7dcafdb55d285).
+- Connect a Kapso project through browser sign-in to find unread WhatsApp conversations, summarize messages, and draft replies for review and sending in the inbox UI.
+- Added public installation guidance alongside the existing Codex, Cursor, and Claude Code instructions. This documentation update does not change the package version.
+
 ## 0.1.3
 
 - Added OAuth-first account creation, project approval, and original-request continuation guidance.

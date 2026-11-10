@@ -2,10 +2,11 @@
 
 ## Description
 
-Kapso is the WhatsApp API for developers. This plugin helps agents build, integrate, and observe WhatsApp automations, Project Event workflows, and recurring project Findings through Kapso skills, helper scripts, examples, and a remote MCP connection.
+Use Kapso in ChatGPT to find unread WhatsApp conversations, summarize message history, and review replies in the inbox. The package also provides skills, helper scripts, examples, and a remote MCP connection for building, integrating, and observing WhatsApp automations in supported agent hosts.
 
 ## Features
 
+- Manage your WhatsApp inbox in ChatGPT: find conversations, read and summarize messages, and review or edit replies before sending them from the inbox UI.
 - Connect WhatsApp to products with setup links, connection detection, webhooks, sends, templates, media, and WhatsApp Flows.
 - Build Kapso workflows with WhatsApp and Project Event triggers, Project Event emissions, AI steps, functions, app integrations, data tables, and execution controls.
 - Observe production issues with Findings and unified project log search across API calls, Meta events, workflow events, webhook deliveries, message delivery, template health, number health, and error patterns.
@@ -14,13 +15,23 @@ Kapso is the WhatsApp API for developers. This plugin helps agents build, integr
 
 ## Installation
 
+### ChatGPT
+
+[Open Kapso in ChatGPT](https://chatgpt.com/plugins/plugin_asdk_app_6ac943a9699c8191afc7dcafdb55d285), connect your Kapso account, and choose a project and permissions. Ask **Open Kapso**, then try **Show my unread WhatsApp conversations** or **Draft a reply for me to review**. Sending a proposed reply requires clicking **Send** in the inbox UI.
+
+No API key, terminal, or Node.js installation is needed for the ChatGPT plugin.
+
+### Cursor
+
 Install from the Cursor marketplace:
 
 ```text
 /add-plugin kapso
 ```
 
-Codex users can install from the custom marketplace:
+### Codex
+
+Install from the custom marketplace:
 
 ```bash
 codex plugin marketplace add gokapso/agent-plugins
@@ -41,7 +52,7 @@ codex plugin add app-69e50baf29a48191847ceec3bfd887a4@kapso
 ## Prerequisites
 
 - Sign in or create a Kapso account during the host's Connect account flow, then approve project access.
-- Node.js 20+ for the bundled helper scripts.
+- Node.js 20+ only if running the bundled helper scripts.
 - Optional: Kapso CLI installed and authenticated.
 
 ```bash

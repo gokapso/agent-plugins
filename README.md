@@ -99,6 +99,8 @@ bun run check:syntax
 
 CI runs these commands on every pull request and push to `main`. The integration tests use offline API fixtures and compare supported requests and outputs against the original agent-skills baseline.
 
+CI also runs `claude plugin validate .` and `claude plugin validate plugins/kapso`. Run them locally when you change a manifest or MCP config (requires Claude Code).
+
 For OpenAI public-directory packaging and review, see [PUBLISHING.md](PUBLISHING.md). Build the submission ZIP with `python3 scripts/package-codex.py`.
 
 ## Safety

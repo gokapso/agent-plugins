@@ -13,6 +13,8 @@ npm run check:syntax
 
 `npm run validate` checks marketplace structure, Codex manifest metadata, JSON parseability, release hygiene, MCP URLs, documentation sections, and common secret or local-path mistakes.
 
+If you change a plugin manifest or MCP config, also run `claude plugin validate plugins/kapso` (requires Claude Code). CI runs it on every pull request.
+
 ## Safety Expectations
 
 - Keep examples synthetic. Use `example.com`, placeholder IDs, and test phone numbers.
